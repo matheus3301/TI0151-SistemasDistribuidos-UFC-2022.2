@@ -4,7 +4,9 @@ package server;
 import exceptions.InvalidRequestException;
 import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
+import messages.CalculusErrorResponse;
 import messages.CalculusRequest;
+import messages.CalculusResponse;
 import util.ConversionUtil;
 
 import java.io.IOException;
@@ -15,7 +17,7 @@ import java.net.SocketException;
 @Slf4j
 public class CalculatorServer {
     private final DatagramSocket socket;
-    private byte[] buffer;
+    private final byte[] buffer;
 
     public CalculatorServer(int port) throws SocketException {
         this.socket = new DatagramSocket(port);
@@ -39,9 +41,13 @@ public class CalculatorServer {
         }catch (InvalidRequestException exception){
             log.error("invalid message from {}", request.getAddress().getHostAddress());
 
-            String morre = "morre fdp";
-            DatagramPacket response = new DatagramPacket(morre.getBytes(), morre.length(), request.getAddress(), request.getPort());
-            socket.send(response);
+            CalculusErrorResponse calculusErrorResponse = new CalculusErrorResponse();
+
+            calculusErrorResponse.setAddress(request.getAddress());
+            calculusErrorResponse.setPort(request.getPort());
+            calculusErrorResponse.setMessage("Invalid parameters!");
+
+            this.sendMessage(calculusErrorResponse);
 
             return null;
         }
@@ -55,6 +61,22 @@ public class CalculatorServer {
         );
 
         return calculusRequest;
+    }
+
+    public void sendMessage(CalculusResponse calculusResponse){
+
+        DatagramPacket response = new DatagramPacket(
+                calculusResponse.toString().getBytes(),
+                calculusResponse.toString().length(),
+                calculusResponse.getAddress(),
+                calculusResponse.getPort()
+        );
+
+        try{
+            this.socket.send(response);
+        }catch (IOException ignored){
+
+        }
     }
 
     public void close(){
