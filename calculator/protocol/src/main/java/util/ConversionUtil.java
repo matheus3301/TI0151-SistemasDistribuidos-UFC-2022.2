@@ -5,8 +5,8 @@ import exceptions.InvalidRequestException;
 import messages.CalculusRequest;
 
 public class ConversionUtil {
-    public static CalculusRequest StringToObject(String s) throws InvalidRequestException{
-        CalculusRequest request = new CalculusRequest();
+    public static CalculusRequest.CalculusRequestBody StringToObject(String s) throws InvalidRequestException{
+        CalculusRequest.CalculusRequestBody request = new CalculusRequest.CalculusRequestBody();
 
         s = s.trim();
 
@@ -17,19 +17,19 @@ public class ConversionUtil {
         lines[0] = lines[0].trim();
         String[] firstLine = lines[0].split(" ");
 
-        if(firstLine[0].toUpperCase().equals("SUM")){
+        if(firstLine[0].equalsIgnoreCase("SUM")){
             request.setOperation(Operations.SUM);
-        } else if (firstLine[0].toUpperCase().equals("SUB")){
+        } else if (firstLine[0].equalsIgnoreCase("SUB")){
             request.setOperation(Operations.SUB);
-        } else if (firstLine[0].toUpperCase().equals("DIV")){
+        } else if (firstLine[0].equalsIgnoreCase("DIV")){
             request.setOperation(Operations.DIV);
-        } else if (firstLine[0].toUpperCase().equals("MUL")){
+        } else if (firstLine[0].equalsIgnoreCase("MUL")){
             request.setOperation(Operations.MUL);
         } else {
             throw new InvalidRequestException();
         }
 
-        if(!firstLine[1].toUpperCase().equals("CP")){
+        if(!firstLine[1].equalsIgnoreCase("CP")){
             throw new InvalidRequestException();
         }
 

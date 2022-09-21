@@ -17,7 +17,10 @@ public class ServerApplication {
             log.info("server is running on port {}", PORT);
 
             while(true){
-                calculatorServer.getRequest();
+                CalculusRequest request = calculatorServer.getRequest();
+                if(request == null) continue;
+
+
 
 
             }
