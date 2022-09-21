@@ -2,10 +2,14 @@ package util;
 
 import enums.Operations;
 import exceptions.InvalidRequestException;
+import exceptions.InvalidResponseException;
+import messages.CalculusErrorResponse;
 import messages.CalculusRequest;
+import messages.CalculusResponse;
+import messages.CalculusSuccessResponse;
 
 public class ConversionUtil {
-    public static CalculusRequest.CalculusRequestBody StringToObject(String s) throws InvalidRequestException{
+    public static CalculusRequest.CalculusRequestBody stringToRequest(String s) throws InvalidRequestException{
         CalculusRequest.CalculusRequestBody request = new CalculusRequest.CalculusRequestBody();
 
         s = s.trim();
@@ -53,5 +57,57 @@ public class ConversionUtil {
         }
 
         return request;
+    }
+
+    public static CalculusResponse stringToResponse(String s) throws InvalidResponseException {
+        s = s.trim();
+
+        String[] lines = s.split("\n");
+        if(lines.length != 2)
+            throw new InvalidResponseException();
+
+        lines[0] = lines[0].trim();
+        String[] firstLine = lines[0].split(" ");
+
+        if(!firstLine[0].equals("CP")){
+            throw new InvalidResponseException();
+        }
+        if(!firstLine[1].equals("1.0")){
+            throw new InvalidResponseException();
+        }
+        if(!firstLine[2].equals("OK") && !firstLine[2].equals("ERROR")){
+            throw new InvalidResponseException();
+        }
+
+        String[] secondLine = lines[1].trim().split(":");
+        if(secondLine.length != 2){
+            throw new InvalidResponseException();
+        }
+
+        if(firstLine[2].equals("OK")){
+            if(!secondLine[0].equals("Answer")){
+                throw new InvalidResponseException();
+            }
+            String[] rightSecondLine = secondLine[1].split(".");
+            if(rightSecondLine.length != 2){
+               throw new InvalidResponseException();
+            }
+            try {
+                Double.parseDouble(rightSecondLine[0]);
+            } catch (NumberFormatException e) {
+            }
+            try {
+                Double.parseDouble(rightSecondLine[1]);
+            } catch (NumberFormatException e){
+
+            }
+            CalculusSuccessResponse responseSuccess = new CalculusSuccessResponse();
+            responseSuccess.setAnswer(Double.parseDouble(secondLine[1]));
+            responseSuccess.setPrecision(rightSecondLine[1].length());
+            return responseSuccess;
+        } else {
+            CalculusErrorResponse responseError = new CalculusErrorResponse();
+            return responseError;
+        }
     }
 }

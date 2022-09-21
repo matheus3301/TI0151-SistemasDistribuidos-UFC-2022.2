@@ -2,7 +2,6 @@ package server;
 
 
 import exceptions.InvalidRequestException;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import messages.CalculusErrorResponse;
 import messages.CalculusRequest;
@@ -36,7 +35,7 @@ public class CalculatorServer {
         CalculusRequest calculusRequest = new CalculusRequest();
         try{
             calculusRequest.setBody(
-                    ConversionUtil.StringToObject(rawRequest)
+                    ConversionUtil.stringToRequest(rawRequest)
             );
         }catch (InvalidRequestException exception){
             log.error("invalid message from {}", request.getAddress().getHostAddress());

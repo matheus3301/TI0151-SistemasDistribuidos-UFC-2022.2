@@ -18,16 +18,16 @@ public class CalculusRequest {
     private int port;
 
     @Override
-    public String toString(){
-        return "";
+    public String toString() {
+        return String.format("%s CP 1.0\n" + "Precision: %d\n\n" + "%f\n" + "%f", body.getOperation(), body.getPrecision(), body.getA(), body.getB());
     }
 
     @Data
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class CalculusRequestBody{
-        private double a,b;
+    public static class CalculusRequestBody {
+        private double a, b;
         private int precision = 2;
         private Operations operation;
 
