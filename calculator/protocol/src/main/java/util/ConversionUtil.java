@@ -47,8 +47,23 @@ public class ConversionUtil {
             String blankLine = lines[i];
             if (blankLine.equals("")){
                 if(i != 1){
-                    headerLine = lines[i-1].split(" ");
+                    headerLine = lines[i-1].split(":");
+                    if(!headerLine[0].equals("Precision")){
+                        throw new InvalidRequestException();
+                    }
+                    try {
+                        Double.parseDouble(headerLine[1]);
+                    } catch (NumberFormatException e) {
+                    }
                     request.setPrecision(Integer.parseInt(headerLine[1]));
+                }
+                try {
+                    Double.parseDouble(lines[i+1]);
+                } catch (NumberFormatException e) {
+                }
+                try {
+                    Double.parseDouble(lines[i+2]);
+                } catch (NumberFormatException e) {
                 }
                 request.setA(Double.parseDouble(lines[i+1]));
                 request.setB(Double.parseDouble(lines[i+2]));
@@ -107,6 +122,10 @@ public class ConversionUtil {
             return responseSuccess;
         } else {
             CalculusErrorResponse responseError = new CalculusErrorResponse();
+            if(!secondLine[0].equals("Message")){
+                throw new InvalidResponseException();
+            }
+            responseError.setMessage(secondLine[1]);
             return responseError;
         }
     }
