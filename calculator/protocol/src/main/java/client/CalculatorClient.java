@@ -5,6 +5,7 @@ import exceptions.InvalidResponseException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import messages.CalculusRequest;
 import messages.CalculusResponse;
@@ -16,6 +17,7 @@ import java.net.*;
 @Slf4j
 @Data
 @Builder
+@AllArgsConstructor
 public class CalculatorClient {
 
     private final DatagramSocket socket;
@@ -26,15 +28,16 @@ public class CalculatorClient {
     public CalculatorClient(String serverAddress, int serverPort) throws UnknownHostException, SocketException {
         this.socket = new DatagramSocket();
         this.serverPort = serverPort;
-        this.serverAddress = InetAddress.getByName(serverAddress);
         this.buffer = new byte[1024];
+        this.serverAddress = InetAddress.getByName(serverAddress);
     }
 
-    public CalculusResponse calculate(double a, double b, Operations operation) throws IOException, InvalidResponseException {
+    public CalculusResponse calculate(double a, double b, Operations operation, int precision) throws IOException, InvalidResponseException{
         CalculusRequest.CalculusRequestBody requestBody = new CalculusRequest.CalculusRequestBody();
         requestBody.setA(a);
         requestBody.setB(b);
         requestBody.setOperation(operation);
+        requestBody.setPrecision(precision);
         CalculusRequest request = new CalculusRequest();
         request.setBody(requestBody);
 
@@ -47,6 +50,10 @@ public class CalculatorClient {
         String rawResponse = new String(responsePacket.getData(), 0, responsePacket.getLength());
 
         return ConversionUtil.stringToResponse(rawResponse);
+    }
+
+    public CalculusResponse calculate(double a, double b, Operations operation) throws IOException, InvalidResponseException {
+        return this.calculate(a, b, operation, 2);
     }
 
 }

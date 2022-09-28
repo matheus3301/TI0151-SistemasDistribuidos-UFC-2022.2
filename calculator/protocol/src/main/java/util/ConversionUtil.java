@@ -3,11 +3,13 @@ package util;
 import enums.Operations;
 import exceptions.InvalidRequestException;
 import exceptions.InvalidResponseException;
+import lombok.extern.slf4j.Slf4j;
 import messages.CalculusErrorResponse;
 import messages.CalculusRequest;
 import messages.CalculusResponse;
 import messages.CalculusSuccessResponse;
 
+@Slf4j
 public class ConversionUtil {
     public static CalculusRequest.CalculusRequestBody stringToRequest(String s) throws InvalidRequestException{
         CalculusRequest.CalculusRequestBody request = new CalculusRequest.CalculusRequestBody();
@@ -55,7 +57,7 @@ public class ConversionUtil {
                         Double.parseDouble(headerLine[1]);
                     } catch (NumberFormatException e) {
                     }
-                    request.setPrecision(Integer.parseInt(headerLine[1]));
+                    request.setPrecision(Integer.parseInt(headerLine[1].trim()));
                 }
                 try {
                     Double.parseDouble(lines[i+1]);
@@ -75,6 +77,8 @@ public class ConversionUtil {
     }
 
     public static CalculusResponse stringToResponse(String s) throws InvalidResponseException {
+        log.info("response: {}",s);
+
         s = s.trim();
 
         String[] lines = s.split("\n");
@@ -100,10 +104,10 @@ public class ConversionUtil {
         }
 
         if(firstLine[2].equals("OK")){
-            if(!secondLine[0].equals("Answer")){
+            if(!secondLine[0].trim().equals("Answer")){
                 throw new InvalidResponseException();
             }
-            String[] rightSecondLine = secondLine[1].split(".");
+            String[] rightSecondLine = secondLine[1].split("\\.");
             if(rightSecondLine.length != 2){
                throw new InvalidResponseException();
             }
