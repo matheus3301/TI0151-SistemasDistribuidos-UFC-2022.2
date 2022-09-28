@@ -45,6 +45,9 @@ public class CalculatorClient {
         log.info("sending packet to the server");
         socket.send(sendPacket);
         log.info("waiting for server response");
+
+        //TODO: Colocar um timeout
+
         DatagramPacket responsePacket = new DatagramPacket(buffer, buffer.length);
         socket.receive(responsePacket);
         String rawResponse = new String(responsePacket.getData(), 0, responsePacket.getLength());

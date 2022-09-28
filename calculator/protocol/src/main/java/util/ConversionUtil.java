@@ -11,6 +11,8 @@ import messages.CalculusSuccessResponse;
 
 @Slf4j
 public class ConversionUtil {
+    //TODO: Refazer os marshalling and unmarshalling
+
     public static CalculusRequest.CalculusRequestBody stringToRequest(String s) throws InvalidRequestException{
         CalculusRequest.CalculusRequestBody request = new CalculusRequest.CalculusRequestBody();
 

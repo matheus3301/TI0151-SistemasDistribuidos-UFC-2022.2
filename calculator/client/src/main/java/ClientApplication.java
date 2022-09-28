@@ -12,6 +12,8 @@ import java.net.UnknownHostException;
 
 @Slf4j
 public class ClientApplication {
+    // TODO: Escrever um cliente melhorzin (menu interativo, cli, gui)
+
     private static final int PORT = 6666;
     private static final String HOST = "localhost";
     private static CalculatorClient calculatorClient;

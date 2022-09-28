@@ -12,6 +12,8 @@ import java.net.SocketException;
 public class ServerApplication {
     private static int PORT = 6666;
 
+    // TODO: refatorar processamento de operações (Criar uma classe calculadora)
+
     public static void main(String[] args) {
         log.info("starting application");
         try{
