@@ -41,8 +41,12 @@ def main():
             input_message = input()
             input_message = input_message.strip()
 
-
-            send_message_to_server(connection, MessageTypes.TEXT, input_message)
+            if input_message == '/sair':
+                send_message_to_server(connection, MessageTypes.LOGOUT, '')
+            elif input_message == '/usuarios':
+                send_message_to_server(connection, MessageTypes.USERS, '')
+            else:
+                send_message_to_server(connection, MessageTypes.TEXT, input_message)
 
     except socket.error:
         logging.error(f"connection lost with the server")
