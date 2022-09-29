@@ -3,82 +3,81 @@ import logging
 import json
 import socket
 import threading
+from pyfiglet import Figlet
+import os
 
-logging.basicConfig(level=logging.DEBUG,
+from src.message_fields import MessageFields
+from src.message_types import MessageTypes
+
+logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s')
 
 HOST = "localhost"
 PORT = 7777
-BUFFER_SIZE = 6144
-
-
-class MessageTypes(Enum):
-    LOGIN = 1
-    TEXT = 2
-    USERS = 3
-    LOGOUT = 4
-    ERROR = 5
-
+BUFFER_SIZE = 2048
 
 def main():
+    try:
+        clear_console()
+        figlet = Figlet(font='slant')
+        print(figlet.renderText('PyCHAT'))
 
-    connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    # connection.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    # connection.bind(('localhost', 8081))
-    connection.connect((HOST, PORT))
-
-    nickname = input("Digite seu nome: ")
-
-    connection.sendall(json.dumps({
-        'type': MessageTypes.LOGIN.name,
-        'nickname': nickname
-    }).encode())
-
-    incoming_messages_thread = threading.Thread(
+        connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # connection.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        # connection.bind(('localhost', 8081))
+        connection.connect((HOST, PORT))
+        incoming_messages_thread = threading.Thread(
         target=handle_incoming_messages, args=(connection,))
+        # incoming_messages_thread.setDaemon(True)
+        # setting the thread as daemon, to die with its parent
+        incoming_messages_thread.start()
 
-    # setting the thread as daemon, to die with its parent
-    incoming_messages_thread.start()
+        logging.debug('connection with server has been done successfully')
+        nickname = input("digite seu nickname: ")
 
-    while True:
-        message = input()
+        send_message_to_server(connection, MessageTypes.LOGIN, nickname)
 
-        if message == '/sair':
-            connection.sendall(
-                json.dumps({
-                    'type': MessageTypes.LOGOUT.name,
-                    'nickname': nickname
-                }).encode()
+        while True:
+            input_message = input()
+            input_message = input_message.strip()
 
-            )
 
-        elif message == '/usuarios':
-            connection.sendall(
-                json.dumps({
-                    'type': MessageTypes.USERS.name  
-                }).encode()
-            )    
+            send_message_to_server(connection, MessageTypes.TEXT, input_message)
 
-        else:    
-            connection.sendall(json.dumps({
-                'type': MessageTypes.TEXT.name,
-                'message': message
-            }).encode())
+    except socket.error:
+        logging.error(f"connection lost with the server")
+    except KeyboardInterrupt:
+        print("Encerrando a aplicação")
+        send_message_to_server(connection, MessageTypes.LOGOUT, '')
+        connection.close()
+        clear_console()
+        exit()
 
+def send_message_to_server(connection: socket, message_type: MessageTypes, message: str):
+    connection.sendall(json.dumps({MessageFields.TYPE: message_type.name,MessageFields.MESSAGE: message}).encode())
 
 def handle_incoming_messages(conneciton: socket):
     while True:
-        logging.info("a")
         message = conneciton.recv(BUFFER_SIZE).decode()
 
-        logging.info("c")
         sanitized_message = json.loads(message)
-
-        logging.info("d")
-
         logging.debug(f"recovered message from server")
         logging.debug(sanitized_message)
 
+        if sanitized_message[MessageFields.TYPE] == MessageTypes.TEXT.name:
+            print(sanitized_message[MessageFields.MESSAGE])
+        elif sanitized_message[MessageFields.TYPE] == MessageTypes.ERROR.name:
+            print('\033[91m'+sanitized_message[MessageFields.MESSAGE])
+        elif sanitized_message[MessageFields.TYPE] == MessageTypes.USERS.name:
+            print("Lista de Usuários:\n")
+            for nickname in sanitized_message[MessageFields.MESSAGE]:
+                print(nickname)
+
+def clear_console():
+    command = 'clear'
+    if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
+        command = 'cls'
+    os.system(command)
 
 if __name__ == "__main__":
     main()
