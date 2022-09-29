@@ -77,14 +77,17 @@ class Server:
                         self.__clients[client_address] = (
                             client_socket, sanitized_message['nickname'])
 
-                        client_socket.sendall(
-                            json.dumps(
-                                {
-                                    'type': MessageTypes.TEXT.name,
-                                    'message': f"SERVIDOR: {sanitized_message['nickname']} entrou no chat!"
-                                }
-                            ).encode()
-                        )
+                        for other_client_address in self.__clients:
+                            (other_client_socket,
+                                    other_client_nickname) = self.__clients[other_client_address]   
+                            other_client_socket.sendall(
+                                json.dumps(
+                                    {
+                                        'type': MessageTypes.TEXT.name,
+                                        'message': f"SERVIDOR: {sanitized_message['nickname']} entrou no chat!"
+                                    }
+                                ).encode()
+                            )
                     else:
                         logging.error(
                             f"{client_address} is already logged in the chat")
@@ -116,16 +119,18 @@ class Server:
                         (saved_socket,
                          nickname) = self.__clients[client_address]
                         logging.info(f"removing {nickname} from the chat")
+                        for other_client_address in self.__clients:
+                            (other_client_socket,
+                                    other_client_nickname) = self.__clients[other_client_address]   
+                            other_client_socket.sendall(
+                                json.dumps(
+                                    {
+                                        'type': MessageTypes.TEXT.name,
+                                        'message': f"SERVIDOR: {sanitized_message['nickname']} saiu do chat!"
+                                    }
+                                ).encode()
+                            )
                         self.__clients.pop(client_address)
-
-                        client_socket.sendall(
-                            json.dumps(
-                                {
-                                    'type': MessageTypes.TEXT.name,
-                                    'message': f"SERVIDOR: {sanitized_message['nickname']} saiu do chat!"
-                                }
-                            ).encode()
-                        )
 
                 # handling user text messages
                 if (sanitized_message['type'] == MessageTypes.TEXT.name):
@@ -149,6 +154,25 @@ class Server:
                                     'type': MessageTypes.TEXT.name,
                                     'message': final_sent_message
                                 }).encode())
+
+                if (sanitized_message['type'] == MessageTypes.USERS.name):
+                    if not self.__clients.get(client_address, False):
+                        logging.error(
+                            f"{client_address} is not able to send message because its not logged")
+                    else:
+                        # sending list of all users to the client
+                        list_client_message = f"Lista de Usuários:\n"
+                        for other_client_address in self.__clients:
+                            (other_client_socket,
+                                other_client_nickname) = self.__clients[other_client_address]
+
+                            list_client_message = list_client_message + f"Nickname: {other_client_nickname}\n"
+
+                        client_socket.sendall(json.dumps({
+                            'type': MessageTypes.TEXT.name,
+                            'message': list_client_message
+                        }).encode())                                
+
             except socket.error:
                 logging.error(
                     f"connection with {client_address} has been lost")
@@ -196,5 +220,6 @@ class Server:
 class MessageTypes(Enum):
     LOGIN = 1
     TEXT = 2
-    LOGOUT = 3
-    ERROR = 4
+    USERS = 3
+    LOGOUT = 4
+    ERROR = 5

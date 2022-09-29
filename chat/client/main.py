@@ -15,8 +15,9 @@ BUFFER_SIZE = 6144
 class MessageTypes(Enum):
     LOGIN = 1
     TEXT = 2
-    LOGOUT = 3
-    ERROR = 4
+    USERS = 3
+    LOGOUT = 4
+    ERROR = 5
 
 
 def main():
@@ -46,14 +47,23 @@ def main():
             connection.sendall(
                 json.dumps({
                     'type': MessageTypes.LOGOUT.name,
+                    'nickname': nickname
                 }).encode()
 
             )
 
-        connection.sendall(json.dumps({
-            'type': MessageTypes.TEXT.name,
-            'message': message
-        }).encode())
+        elif message == '/usuarios':
+            connection.sendall(
+                json.dumps({
+                    'type': MessageTypes.USERS.name  
+                }).encode()
+            )    
+
+        else:    
+            connection.sendall(json.dumps({
+                'type': MessageTypes.TEXT.name,
+                'message': message
+            }).encode())
 
 
 def handle_incoming_messages(conneciton: socket):
