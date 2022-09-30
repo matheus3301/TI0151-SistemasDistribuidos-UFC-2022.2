@@ -7,20 +7,46 @@
 	},
 	"item": [
 		{
-			"name": "Sensors",
+			"name": "Devices",
 			"item": [
 				{
-					"name": "Hello World",
+					"name": "Create Device",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Televisão\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{base_url}}/",
+							"raw": "{{base_url}}/devices",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								""
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List All  Devices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/devices",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"devices"
 							]
 						}
 					},
