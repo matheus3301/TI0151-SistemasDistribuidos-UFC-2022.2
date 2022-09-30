@@ -21,6 +21,12 @@ def main():
         clear_console()
         figlet = Figlet(font='slant')
         print(figlet.renderText('PyCHAT'))
+        login = ""
+        while(login != "/entrar"):
+            login = input("Digite /entrar e informe o ip e porta do pyCHAT que deseja acessar: \n")
+        
+        HOST = input("informe o IP: ")
+        PORT = int(input("informe a Porta: "))
 
         connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # connection.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
