@@ -42,8 +42,12 @@ def main():
 
             logging.debug('connection with server has been done successfully')
             nickname = input("digite seu nickname: ")
-
+            clear_console()
             send_message_to_server(connection, MessageTypes.LOGIN, nickname)
+
+            print(f"COMANDOS:")
+            print(f"/usuarios - Lista os usuarios online")
+            print(f"/sair - Faz logout\n")
 
             while True:
                 input_message = input()
@@ -71,9 +75,12 @@ def send_message_to_server(connection: socket, message_type: MessageTypes, messa
 
 def handle_incoming_messages(connection: socket):
     while True:
-        message = connection.recv(BUFFER_SIZE).decode()
+        try:
+            message = connection.recv(BUFFER_SIZE)
+        except OSError:
+            break
 
-        sanitized_message = json.loads(message)
+        sanitized_message = json.loads(message.decode())
         logging.debug(f"recovered message from server")
         logging.debug(sanitized_message)
 
