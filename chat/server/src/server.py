@@ -10,8 +10,6 @@ from .message_types import MessageTypes
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s %(message)s')
 
-# TODO: propagar entrada e saída de usuários
-
 
 class Server:
     def __init__(self, config: dict) -> None:
@@ -26,8 +24,7 @@ class Server:
         self.connection.bind((self.__config["HOST"], self.__config["PORT"]))
         self.connection.listen(self.__config["MAX_CLIENTS"])
 
-        logging.info(
-            f"server is avaliable on {self.__config['HOST']}:{self.__config['PORT']}")
+        logging.info(f"server is avaliable on {self.__config['HOST']}:{self.__config['PORT']}")
 
     def start(self) -> None:
         while True:
@@ -35,8 +32,7 @@ class Server:
                 (client_socket, client_address) = self.connection.accept()
 
                 # for each new connection, a new thread to handle incoming messages from a client
-                thread = threading.Thread(
-                    target=self.handle_client_connection, args=(client_socket, client_address))
+                thread = threading.Thread(target=self.handle_client_connection, args=(client_socket, client_address))
 
                 # setting the thread as daemon, to die with its parent
                 thread.setDaemon(True)
@@ -56,8 +52,7 @@ class Server:
             message = ''
 
             try:
-                message = client_socket.recv(
-                    self.__config['BUFFER_SIZE']).decode()
+                message = client_socket.recv(self.__config['BUFFER_SIZE']).decode()
 
                 if not message:
                     continue
@@ -66,72 +61,38 @@ class Server:
                 logging.debug(f"recovered message from {client_address}")
                 logging.debug(sanitized_message)
 
-                logging.info(
-                    f"{sanitized_message[MessageFields.TYPE]} message from {client_address}")
+                logging.info(f"{sanitized_message[MessageFields.TYPE]} message from {client_address}")
 
                 # handling user login
                 if sanitized_message[MessageFields.TYPE] == MessageTypes.LOGIN.name:
                     if not self.__clients.get(client_address, False):
-                        logging.info(
-                            f"{sanitized_message[MessageFields.MESSAGE]} is entering on the chat")
-                        self.__clients[client_address] = (
-                            client_socket, sanitized_message[MessageFields.MESSAGE])
-
-                        for other_client_address in self.__clients:
-                            (other_client_socket,
-                                    other_client_nickname) = self.__clients[other_client_address]   
-                            other_client_socket.sendall(
-                                json.dumps(
-                                    {
-                                        MessageFields.TYPE: MessageTypes.TEXT.name,
-                                        MessageFields.MESSAGE: f"SERVIDOR: {sanitized_message[MessageFields.MESSAGE]} entrou no chat!"
-                                    }
-                                ).encode()
-                            )
+                        logging.info(f"{sanitized_message[MessageFields.MESSAGE]} is entering on the chat")
+                        self.__clients[client_address] = (client_socket, sanitized_message[MessageFields.MESSAGE])
+                        self.send_message_to_group_as_server(MessageTypes.TEXT, f"SERVIDOR: {sanitized_message[MessageFields.MESSAGE]} entrou no chat!")
                     else:
-                        logging.error(
-                            f"{client_address} is already logged in the chat")
+                        logging.error(f"{client_address} is already logged in the chat")
 
-                        client_socket.sendall(
-                            json.dumps(
-                                {
-                                    MessageFields.TYPE: MessageTypes.ERROR.name,
-                                    MessageFields.MESSAGE: f"SERVIDOR: {sanitized_message[MessageFields.MESSAGE]} já está no chat!"
-                                }
-                            ).encode()
-                        )
+                        self.send_message_to_client_as_server(client_socket, MessageTypes.ERROR, f"SERVIDOR: {sanitized_message[MessageFields.MESSAGE]} já está no chat!")
 
                 # handling user logout
                 elif sanitized_message[MessageFields.TYPE] == MessageTypes.LOGOUT.name:
                     if not self.__clients.get(client_address, False):
-                        logging.error(
-                            f"{client_address} is not logged on the chat")
+                        logging.error(f"{client_address} is not logged on the chat")
 
-                        client_socket.sendall(
-                            json.dumps(
-                                {
-                                    MessageFields.TYPE: MessageTypes.ERROR.name,
-                                    MessageFields.MESSAGE: f"SERVIDOR: você não está no chat!"
-                                }
-                            ).encode()
-                        )
+                        self.send_message_to_client_as_server(client_socket, MessageTypes.ERROR, "SERVIDOR: você não está no chat!")
                     else:
-                        (saved_socket,
-                         nickname) = self.__clients[client_address]
+                        (saved_socket, nickname) = self.__clients[client_address]
                         logging.info(f"removing {nickname} from the chat")
-                        for other_client_address in self.__clients:
-                            (other_client_socket,
-                                    other_client_nickname) = self.__clients[other_client_address]   
-                            other_client_socket.sendall(
-                                json.dumps(
-                                    {
-                                        MessageFields.TYPE: MessageTypes.TEXT.name,
-                                        MessageFields.MESSAGE: f"SERVIDOR: {nickname} saiu do chat!"
-                                    }
-                                ).encode()
-                            )
+
+                        self.send_message_to_group_as_server(MessageTypes.TEXT, f"SERVIDOR: {nickname} saiu do chat!")
+                        self.send_message_to_client_as_server(client_socket, MessageTypes.LOGOUT, "SERVIDOR: Você saiu do chat!")
+
+                        client_socket.close()
                         self.__clients.pop(client_address)
 
+                        logging.info(f"thread of {nickname} is shutting down")
+
+                        return None
                 # handling user text messages
                 elif sanitized_message[MessageFields.TYPE] == MessageTypes.TEXT.name:
                     (saved_socket, nickname) = self.__clients[client_address]
@@ -139,8 +100,7 @@ class Server:
                     text_message = sanitized_message[MessageFields.MESSAGE]
 
                     if not self.__clients.get(client_address, False):
-                        logging.error(
-                            f"{client_address} is not able to send message because its not logged")
+                        logging.error(f"{client_address} is not able to send message because its not logged")
 
                         self.send_message_to_client_as_server(client_socket, MessageTypes.ERROR, 'SERVIDOR: Você não está autorizado, entre no chat!')
                     else:
@@ -159,16 +119,14 @@ class Server:
                 else:
                     self.send_message_to_client_as_server(client_socket, MessageTypes.ERROR, 'SERVIDOR: Tipo inválido de mensagem')
             except socket.error:
-                logging.error(
-                    f"connection with {client_address} has been lost")
+                logging.error(f"connection with {client_address} has been lost")
 
                 if self.__clients.get(client_address, False) != False:
                     self.__clients.pop(client_address)
 
                 return None
             except json.JSONDecodeError:
-                logging.error(
-                    f"unable to decode message from {client_address}")
+                logging.error(f"unable to decode message from {client_address}")
 
                 self.send_message_to_client_as_server(client_socket, MessageTypes.ERROR, 'SERVIDOR: Impossível decodificar messagem recebida')
             except TypeError:
@@ -205,6 +163,18 @@ class Server:
                 }
             ).encode()
         )
+
+    def send_message_to_group_as_server(self, message_type: MessageTypes, message) -> None:
+        for other_client_address in self.__clients:
+            (other_client_socket, other_client_nickname) = self.__clients[other_client_address]   
+            other_client_socket.sendall(
+                json.dumps(
+                    {
+                        MessageFields.TYPE: message_type.name,
+                        MessageFields.MESSAGE: message                    }
+                ).encode()
+            )
+
 
 
 
