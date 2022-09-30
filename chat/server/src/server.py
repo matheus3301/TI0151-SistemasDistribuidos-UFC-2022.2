@@ -111,7 +111,7 @@ class Server:
                             json.dumps(
                                 {
                                     MessageFields.TYPE: MessageTypes.ERROR.name,
-                                    MessageFields.MESSAGE: f"SERVIDOR: {sanitized_message[MessageFields.MESSAGE]} não está no chat!"
+                                    MessageFields.MESSAGE: f"SERVIDOR: você não está no chat!"
                                 }
                             ).encode()
                         )
@@ -126,7 +126,7 @@ class Server:
                                 json.dumps(
                                     {
                                         MessageFields.TYPE: MessageTypes.TEXT.name,
-                                        MessageFields.MESSAGE: f"SERVIDOR: {sanitized_message[MessageFields.MESSAGE]} saiu do chat!"
+                                        MessageFields.MESSAGE: f"SERVIDOR: {nickname} saiu do chat!"
                                     }
                                 ).encode()
                             )
@@ -154,7 +154,7 @@ class Server:
                         self.send_message_to_client_as_server(client_socket, MessageTypes.ERROR, 'SERVIDOR: Você não está autorizado, entre no chat!')
                     else:
                         # sending list of all users to the client
-                        nickname_list = [client[1] for client in self.__clients]                     
+                        nickname_list = [self.__clients[client][1] for client in self.__clients]                     
                         self.send_message_to_client_as_server(client_socket, MessageTypes.USERS, nickname_list)
                 else:
                     self.send_message_to_client_as_server(client_socket, MessageTypes.ERROR, 'SERVIDOR: Tipo inválido de mensagem')

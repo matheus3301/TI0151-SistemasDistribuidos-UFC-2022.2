@@ -79,7 +79,7 @@ def handle_incoming_messages(conneciton: socket):
         elif sanitized_message[MessageFields.TYPE] == MessageTypes.ERROR.name:
             print('\033[91m'+sanitized_message[MessageFields.MESSAGE])
         elif sanitized_message[MessageFields.TYPE] == MessageTypes.USERS.name:
-            print("Lista de Usuários:\n")
+            print("Lista de Usuários:")
             for nickname in sanitized_message[MessageFields.MESSAGE]:
                 print(nickname)
 
