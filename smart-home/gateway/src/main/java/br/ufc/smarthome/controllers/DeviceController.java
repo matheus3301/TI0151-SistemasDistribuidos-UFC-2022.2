@@ -18,4 +18,10 @@ public class DeviceController {
     public Models.Device getDevice(@PathVariable String id){
         return deviceRepository.getById(id);
     }
+
+    @GetMapping
+    public Models.DeviceList getDeviceList(){
+        return Models.DeviceList.newBuilder().addAllDevices(deviceRepository.getAll()).build();
+    }
 }
+
