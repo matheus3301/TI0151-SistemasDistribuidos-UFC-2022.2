@@ -51,6 +51,37 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Device",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Management",
+			"item": [
+				{
+					"name": "Scan for Devices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/management/scan",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"management",
+								"scan"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
