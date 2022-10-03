@@ -1,10 +1,11 @@
 import src.protobuf.iot_pb2 as Messages
+import src.protobuf.api_pb2 as ApiMessages
 
 response = Messages.JoinResponseMessage()
 response.id = "1231"
 
-print(response)
-print(response.SerializeToString())
+# print(response)
+# print(response.SerializeToString())
 
 request = Messages.JoinRequestMessage()
 request.name = 'Quarto'
@@ -14,7 +15,15 @@ temperature = request.sensors.add()
 
 temperature.id = 1
 temperature.name = "Temperatura"
+# print(request)
 
+f = open("fake-devices/devices.txt", "rb")
 
+# print(f.read())
 
-print(request)
+device_list =  ApiMessages.DeviceList()
+device_list.ParseFromString(f.read())
+print(device_list)
+
+f.close()
+

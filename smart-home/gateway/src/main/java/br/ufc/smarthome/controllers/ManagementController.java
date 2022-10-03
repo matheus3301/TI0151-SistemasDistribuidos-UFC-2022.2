@@ -2,6 +2,7 @@ package br.ufc.smarthome.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,11 +20,11 @@ public class ManagementController {
     public void scanForDevices(){
         log.info("scanning for new devices on the local network");
 
-        // TODO: get ip automatically and set port on application.yml
+        // TODO: get ip automatically and set port on application.properties
         String message = "localhost 8080";
 
         try {
-            // TODO: set multicast group and port on application.yml
+            // TODO: set multicast group and port on application.properties
 
             DatagramSocket socket = new DatagramSocket();
             InetAddress group = InetAddress.getByName("230.0.0.0");

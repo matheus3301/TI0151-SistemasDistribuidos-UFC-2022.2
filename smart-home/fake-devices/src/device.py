@@ -1,3 +1,4 @@
+from cmath import log
 import socket
 import src.protobuf.iot_pb2 as Messages
 import requests
@@ -5,7 +6,7 @@ import struct
 import logging
 
 BUFFER_SIZE = 1024
-
+headers = {'Content-type': 'application/x-protobuf'}
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s %(message)s')
 
@@ -26,6 +27,8 @@ class Device:
 
     def join_gateway(self, server_address, server_port):
         url = f'http://{server_address}:{server_port}/iot/join'
+
+        logging.info(url)
 
         join_request_message = Messages.JoinRequestMessage()
         join_request_message.name = self.__device_name
@@ -49,9 +52,15 @@ class Device:
         # join_request_message.ip
         # join_request_message.port
 
-        response = requests.post(url,data=join_request_message.SerializeToString())
+        response = requests.post(url,data=join_request_message.SerializeToString(),headers=headers)
         text_response = response.text
-        return Messages.JoinResponseMessage().ParseFromString(text_response)
+
+        response_object = Messages.JoinResponseMessage()
+        response_object.ParseFromString(str.encode(text_response)) 
+        
+        logging.info(response_object)
+
+        return response_object
 
 
         

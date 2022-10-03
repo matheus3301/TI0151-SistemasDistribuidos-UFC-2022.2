@@ -7,8 +7,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.AbstractHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.protobuf.ProtobufHttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +28,15 @@ public class SmartHomeApplication {
 
     @Bean
     ProtobufHttpMessageConverter protobufHttpMessageConverter() {
-        return new ProtobufHttpMessageConverter();
+        ProtobufHttpMessageConverter protobufHttpMessageConverter = new ProtobufHttpMessageConverter();
+
+        protobufHttpMessageConverter.getSupportedMediaTypes().forEach(
+            mediaType -> {
+                log.info(mediaType.getType()+"/"+mediaType.getSubtype());
+            }
+        );
+
+        return protobufHttpMessageConverter;
     }
 
     @Bean
@@ -47,4 +61,5 @@ public class SmartHomeApplication {
 
         return new DeviceRepository(map);
     }
+
 }
