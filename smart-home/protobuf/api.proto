@@ -3,7 +3,7 @@
 syntax = "proto3";
 
 option java_package = "br.ufc.smarthome.models";
-option java_outer_classname = "Models";
+option java_outer_classname = "Api";
 
 message Device {
   string id = 1;

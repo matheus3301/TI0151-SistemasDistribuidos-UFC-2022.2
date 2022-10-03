@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option java_package = "br.ufc.smarthome.models";
+option java_outer_classname = "Iot";
+
+message JoinRequestMessage {
+    string name = 1;
+    repeated Sensor sensors = 2;
+    repeated Actuator actuators = 3;
+
+    message Sensor {
+        int32 id = 1;
+        string name = 2;
+    }
+
+    message Actuator {
+        int32 id = 1;
+        string name = 2;
+      }
+    
+    string ip = 4;
+    string port = 5;
+}
+
+message JoinResponseMessage {
+    string id = 1;
+}
