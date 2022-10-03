@@ -16,7 +16,7 @@ message JoinRequestMessage {
     message Actuator {
         int32 id = 1;
         string name = 2;
-    }
+      }
 }
 
 message JoinResponseMessage {

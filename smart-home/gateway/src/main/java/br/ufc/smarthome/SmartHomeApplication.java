@@ -1,5 +1,6 @@
 package br.ufc.smarthome;
 
+import br.ufc.smarthome.entities.DeviceEntity;
 import br.ufc.smarthome.models.Models;
 import br.ufc.smarthome.repositories.DeviceRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -41,25 +42,9 @@ public class SmartHomeApplication {
 
     @Bean
     DeviceRepository createDeviceRepository(){
-        Map<String, Models.Device> map = new HashMap<>();
+        Map<String, DeviceEntity> map = new HashMap<>();
 
-        Models.Device device1 = Models.Device
-                .newBuilder()
-                .setId("asdf098asd")
-                .setName("Televisão do Quarto")
-                .build();
-
-
-        Models.Device device2 = Models.Device
-                .newBuilder()
-                .setId("hdfkl12341")
-                .setName("Máquina de Lavar")
-                .build();
-
-        map.put(device1.getId(), device1);
-        map.put(device2.getId(), device2);
-
-        return new DeviceRepository(map);
+        return new DeviceRepository(map, 30);
     }
 
 }
