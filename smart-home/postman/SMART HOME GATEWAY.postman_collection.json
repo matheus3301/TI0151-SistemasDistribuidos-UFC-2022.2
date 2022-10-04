@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "e9dfe2b9-032b-4301-a7d7-9e5dd15f0d7c",
+		"name": "SMART HOME GATEWAY",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11717099"
+	},
+	"item": [
+		{
+			"name": "Devices",
+			"item": [
+				{
+					"name": "Create Device",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Televisão\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/devices",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List All  Devices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/devices",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Device",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Management",
+			"item": [
+				{
+					"name": "Scan for Devices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/management/scan",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"management",
+								"scan"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
