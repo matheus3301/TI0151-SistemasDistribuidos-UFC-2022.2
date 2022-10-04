@@ -11,20 +11,34 @@ BUFFER_SIZE = 1024
 headers = {'Content-type': 'application/x-protobuf'}
 logging.basicConfig(level=logging.DEBUG,format='%(asctime)s %(levelname)s %(message)s')
 
+#TODO: send udp-server link to gateway when connecting 
 class Device:
-    def __init__(self, device_name: str ,multicast_group: str, multicast_port: int, sensors: list, actuators: list, sensor_interval: int) -> None:
+    def __init__(self, device_name: str, multicast_group: str, multicast_port: int, udp_server_address: str, udp_server_port: int, sensors: list, actuators: list, sensor_interval: int) -> None:
         self.__multicast_group = multicast_group
         self.__multicast_port = multicast_port
         self.__device_name = device_name
         self.__sensors = sensors
         self.__actuators = actuators
         self.__sensor_interval = sensor_interval
+        self.__udp_server_address = udp_server_address
+        self.__udp_server_port = udp_server_port
 
         self.initiate_actuators_state()
 
         logging.info("starting the device")
 
+        try:
+            udp_address = (udp_server_address, udp_server_port)
+            udp_connection = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            udp_connection.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            udp_connection.bind(udp_address)
+        except socket.error:
+            logging.error(f"could not bind to port, shutting down the device!")
+            
+            return
+
         (server_address, server_port) = self.wait_for_gateway_info()
+        
         join_response = self.join_gateway(server_address, server_port)
         self.__device_id = join_response.id
 
@@ -39,8 +53,13 @@ class Device:
 
         thread.start()
 
-        while True:
-            continue
+        logging.info("starting listing for gateway messages")
+        self.listen_to_gateway_messages()
+
+    
+    def listen_to_gateway_messages(self):
+        
+
 
     def initiate_actuators_state(self):
         for actuator in self.__actuators:

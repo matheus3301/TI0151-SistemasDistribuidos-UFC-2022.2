@@ -1,5 +1,6 @@
 package br.ufc.smarthome.controllers;
 
+import br.ufc.smarthome.entities.DeviceEntity;
 import br.ufc.smarthome.models.Api;
 import br.ufc.smarthome.repositories.DeviceRepository;
 import com.google.protobuf.Timestamp;
@@ -15,6 +16,25 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DeviceController {
     private final DeviceRepository deviceRepository;
+
+    @PostMapping("/{deviceId}/actuators/{actuatorId}/toggle")
+    void toggleDeviceActuator(@PathVariable int actuatorId, @PathVariable String deviceId){
+        log.info("toggling actuator {} of device {}", actuatorId, deviceId);
+
+        DeviceEntity device = deviceRepository.getById(deviceId);
+        if (device != null) {
+            for(DeviceEntity.ActuatorEntity actuator : device.getActuators()){
+                if(actuator.getId() == actuatorId){
+                    if(actuator.remoteToggle()){
+                        log.info("toggling went successfully");
+                    }else{
+                        log.info("could not toggle actuator");
+                    }
+                }
+            }
+        }
+
+    }
 
     @GetMapping
     Api.ListAllDevicesInformationAndHistoryResponse getDashboardData(){

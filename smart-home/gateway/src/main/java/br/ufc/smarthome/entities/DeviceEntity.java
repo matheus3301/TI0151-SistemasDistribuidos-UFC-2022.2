@@ -44,5 +44,11 @@ public class DeviceEntity {
             private final LocalDateTime timestamp;
             private final boolean value;
         }
+
+        public boolean remoteToggle(){
+
+
+            return true;
+        }
     }
 }
