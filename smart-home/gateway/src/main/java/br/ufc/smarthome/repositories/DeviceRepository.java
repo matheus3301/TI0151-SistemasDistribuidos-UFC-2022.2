@@ -2,7 +2,6 @@ package br.ufc.smarthome.repositories;
 
 
 import br.ufc.smarthome.entities.DeviceEntity;
-import br.ufc.smarthome.models.Models;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

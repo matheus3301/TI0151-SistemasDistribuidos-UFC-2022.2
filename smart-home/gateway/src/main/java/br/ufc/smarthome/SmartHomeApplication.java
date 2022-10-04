@@ -1,21 +1,14 @@
 package br.ufc.smarthome;
 
 import br.ufc.smarthome.entities.DeviceEntity;
-import br.ufc.smarthome.models.Models;
 import br.ufc.smarthome.repositories.DeviceRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.AbstractHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.protobuf.ProtobufHttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
