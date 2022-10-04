@@ -1,0 +1,9 @@
+.ant-card {
+    height: 100%;
+}
+
+.button-list {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
