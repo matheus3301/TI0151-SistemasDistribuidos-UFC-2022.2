@@ -1,5 +1,6 @@
 package br.ufc.smarthome.controllers;
 
+import br.ufc.smarthome.entities.DeviceEntity;
 import br.ufc.smarthome.models.Api;
 import br.ufc.smarthome.repositories.DeviceRepository;
 import com.google.protobuf.Timestamp;
@@ -15,6 +16,45 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DeviceController {
     private final DeviceRepository deviceRepository;
+
+    @DeleteMapping("/{deviceId}")
+    void removeDeviceFromSystem(@PathVariable String deviceId){
+        log.info("removing {} from system", deviceId);
+
+        DeviceEntity device = deviceRepository.getById(deviceId);
+        if(device != null){
+            if(device.shutdown()){
+                log.info("{} is shutting down",deviceId);
+                if(deviceRepository.deleteById(deviceId)){
+                    log.info("{} removed successfully", deviceId);
+                }else{
+                    log.error("could not find {} to delete", deviceId);
+                }
+            }else{
+                log.error("could not contact {}", deviceId);
+            }
+        }else{
+            log.error("could not find {} device", deviceId);
+        }
+
+    }
+
+    @PostMapping("/{deviceId}/actuators/{actuatorId}/toggle")
+    void toggleDeviceActuator(@PathVariable int actuatorId, @PathVariable String deviceId){
+        log.info("toggling actuator {} of device {}", actuatorId, deviceId);
+
+        DeviceEntity device = deviceRepository.getById(deviceId);
+        if (device != null) {
+            if(device.remoteToggle(actuatorId)){
+                log.info("toggling went successfully");
+            }else{
+                log.info("could not toggle actuator");
+            }
+        }else{
+            log.error("could not find {} device", deviceId);
+        }
+
+    }
 
     @GetMapping
     Api.ListAllDevicesInformationAndHistoryResponse getDashboardData(){

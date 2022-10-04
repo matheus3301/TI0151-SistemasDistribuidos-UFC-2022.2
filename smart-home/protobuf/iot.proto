@@ -7,6 +7,8 @@ message JoinRequestMessage {
     string name = 1;
     repeated Sensor sensors = 2;
     repeated Actuator actuators = 3;
+    string udp_ip = 4;
+    int32 udp_port = 5;
 
     message Sensor {
         int32 id = 1;
