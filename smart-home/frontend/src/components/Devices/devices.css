@@ -1,0 +1,26 @@
+.ant-card {
+    height: 100%;
+}
+
+.button-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.button-list button{
+    margin-top: 8px;
+}
+
+.ant-row {
+    margin: 54px 0px;
+}
+
+.ant-card{
+    border-radius: 8px !important;
+}
+
+.ant-card .ant-card-head-title{
+    font-size: 24px;
+}

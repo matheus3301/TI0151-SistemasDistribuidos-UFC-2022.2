@@ -1,0 +1,44 @@
+//protoc --java-out=src/main/java src/main/resources/pb.proto
+//version must be 3.21.7
+syntax = "proto3";
+package apipackage;
+
+option java_package = "br.ufc.smarthome.models";
+option java_outer_classname = "Api";
+
+//import "google/protobuf/timestamp.proto";
+
+message ListAllDevicesInformationAndHistoryResponse {
+  repeated DeviceInformationAndHistoryResponse devices = 1;
+}
+
+message DeviceInformationAndHistoryResponse{
+  string uuid = 1;
+  string name = 2;
+  repeated SensorInformationAndHistory sensors = 3;
+  repeated ActuatorInformationAndHistory actuators = 4;
+
+  message SensorInformationAndHistory{
+    int32 id = 1;
+    string name = 2;
+    repeated Measure history = 3;
+
+    message Measure{
+      string timestamp = 1;
+      double value = 2;
+    }
+  }
+
+  message ActuatorInformationAndHistory{
+    int32 id = 1;
+    string name = 2;
+    repeated Status history = 3;
+
+    message Status{
+      string timestamp = 1;
+      bool value = 2;
+    }
+  }
+}
+
+
