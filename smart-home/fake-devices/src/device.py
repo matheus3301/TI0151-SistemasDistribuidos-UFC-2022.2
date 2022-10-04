@@ -3,29 +3,89 @@ import src.protobuf.iot_pb2 as Messages
 import requests
 import struct
 import logging
+import time
+import threading
+import random
 
 BUFFER_SIZE = 1024
-
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s %(levelname)s %(message)s')
+headers = {'Content-type': 'application/x-protobuf'}
+logging.basicConfig(level=logging.DEBUG,format='%(asctime)s %(levelname)s %(message)s')
 
 class Device:
-
-    def __init__(self, device_name: str ,multicast_group: str, multicast_port: int, sensors: list, actuators: list) -> None:
+    def __init__(self, device_name: str ,multicast_group: str, multicast_port: int, sensors: list, actuators: list, sensor_interval: int) -> None:
         self.__multicast_group = multicast_group
         self.__multicast_port = multicast_port
         self.__device_name = device_name
         self.__sensors = sensors
         self.__actuators = actuators
+        self.__sensor_interval = sensor_interval
+
+        self.initiate_actuators_state()
 
         logging.info("starting the device")
 
         (server_address, server_port) = self.wait_for_gateway_info()
         join_response = self.join_gateway(server_address, server_port)
+        self.__device_id = join_response.id
+
+        logging.info(f"device got the id: {self.__device_id}")
+
+        logging.info("starting generating fake sensor data")
+
+        thread = threading.Thread(target=self.send_sensor_data, args=(server_address, server_port))
+
+        # setting the thread as daemon, to die with its parent
+        thread.setDaemon(True)
+
+        thread.start()
+
+        while True:
+            continue
+
+    def initiate_actuators_state(self):
+        for actuator in self.__actuators:
+            actuator.update({'state': False})
+
+
+    def get_measure(self, min: float, max: float):    
+        return round(random.uniform(min, max), 2)
+
+    
+    def send_sensor_data(self, server_address, server_port):
+        logging.info("sending data to gateway")
+
+        url = f'http://{server_address}:{server_port}/iot/send/{self.__device_id}'
+        
+        while True:
+            message = Messages.SendDataRequestMessage()
+            
+            i = 1
+            for sensor in self.__sensors:
+                new_sensor = message.sensors.add()
+                new_sensor.id = i
+                new_sensor.value = self.get_measure(sensor['min'], sensor['max'])
+                i = i + 1
+
+            i = 1
+            for actuator in self.__actuators:
+                new_actuator = message.actuators.add()
+                new_actuator.id = i
+                logging.debug(f"actuator state: {actuator['state']}")
+                new_actuator.state = actuator['state']
+                i = i + 1
+
+            logging.debug(message)
+            try:
+                requests.post(url, data=message.SerializeToString(), headers=headers)
+            except Exception:
+                continue
+            time.sleep(self.__sensor_interval)
 
 
     def join_gateway(self, server_address, server_port):
         url = f'http://{server_address}:{server_port}/iot/join'
+
+        logging.info(url)
 
         join_request_message = Messages.JoinRequestMessage()
         join_request_message.name = self.__device_name
@@ -43,15 +103,22 @@ class Device:
         for actuator in self.__actuators:
             new_actuator = join_request_message.actuators.add()
             new_actuator.name = actuator['name']
-            new_actuator.id = id + 1
+            new_actuator.id = id
+            id = id + 1
 
         #TODO: maybe insert ip and port
         # join_request_message.ip
         # join_request_message.port
 
-        response = requests.post(url,data=join_request_message.SerializeToString())
+        response = requests.post(url,data=join_request_message.SerializeToString(),headers=headers)
         text_response = response.text
-        return Messages.JoinResponseMessage().ParseFromString(text_response)
+
+        response_object = Messages.JoinResponseMessage()
+        response_object.ParseFromString(str.encode(text_response)) 
+        
+        logging.info(response_object)
+
+        return response_object
 
 
         

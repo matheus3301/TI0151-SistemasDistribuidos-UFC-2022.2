@@ -16,24 +16,9 @@ message JoinRequestMessage {
     message Actuator {
         int32 id = 1;
         string name = 2;
-    }
+      }
 }
 
 message JoinResponseMessage {
     string id = 1;
-}
-
-message SendDataRequestMessage {
-    repeated Sensor sensors = 1;
-    repeated Actuator actuators = 2;
-
-    message Sensor {
-        int32 id = 1;
-        double value = 2;
-    }
-
-    message Actuator {
-        int32 id = 1;
-        bool state = 2;
-    }
 }
