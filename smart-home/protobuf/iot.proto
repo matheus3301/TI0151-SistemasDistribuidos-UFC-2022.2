@@ -17,8 +17,6 @@ message JoinRequestMessage {
         int32 id = 1;
         string name = 2;
     }
-
-    int32 port = 4;
 }
 
 message JoinResponseMessage {

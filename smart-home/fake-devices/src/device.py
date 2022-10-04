@@ -70,7 +70,7 @@ class Device:
             for actuator in self.__actuators:
                 new_actuator = message.actuators.add()
                 new_actuator.id = i
-                logging.debug(f"actuator statue: {actuator['state']}")
+                logging.debug(f"actuator state: {actuator['state']}")
                 new_actuator.state = actuator['state']
                 i = i + 1
 

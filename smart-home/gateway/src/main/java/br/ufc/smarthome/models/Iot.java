@@ -77,30 +77,6 @@ public final class Iot {
      */
     br.ufc.smarthome.models.Iot.JoinRequestMessage.ActuatorOrBuilder getActuatorsOrBuilder(
         int index);
-
-    /**
-     * <code>string ip = 4;</code>
-     * @return The ip.
-     */
-    java.lang.String getIp();
-    /**
-     * <code>string ip = 4;</code>
-     * @return The bytes for ip.
-     */
-    com.google.protobuf.ByteString
-        getIpBytes();
-
-    /**
-     * <code>string port = 5;</code>
-     * @return The port.
-     */
-    java.lang.String getPort();
-    /**
-     * <code>string port = 5;</code>
-     * @return The bytes for port.
-     */
-    com.google.protobuf.ByteString
-        getPortBytes();
   }
   /**
    * Protobuf type {@code JoinRequestMessage}
@@ -118,8 +94,6 @@ public final class Iot {
       name_ = "";
       sensors_ = java.util.Collections.emptyList();
       actuators_ = java.util.Collections.emptyList();
-      ip_ = "";
-      port_ = "";
     }
 
     @java.lang.Override
@@ -1503,82 +1477,6 @@ public final class Iot {
       return actuators_.get(index);
     }
 
-    public static final int IP_FIELD_NUMBER = 4;
-    private volatile java.lang.Object ip_;
-    /**
-     * <code>string ip = 4;</code>
-     * @return The ip.
-     */
-    @java.lang.Override
-    public java.lang.String getIp() {
-      java.lang.Object ref = ip_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        ip_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string ip = 4;</code>
-     * @return The bytes for ip.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getIpBytes() {
-      java.lang.Object ref = ip_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        ip_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int PORT_FIELD_NUMBER = 5;
-    private volatile java.lang.Object port_;
-    /**
-     * <code>string port = 5;</code>
-     * @return The port.
-     */
-    @java.lang.Override
-    public java.lang.String getPort() {
-      java.lang.Object ref = port_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        port_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string port = 5;</code>
-     * @return The bytes for port.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString
-        getPortBytes() {
-      java.lang.Object ref = port_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        port_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1602,12 +1500,6 @@ public final class Iot {
       for (int i = 0; i < actuators_.size(); i++) {
         output.writeMessage(3, actuators_.get(i));
       }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ip_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, ip_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(port_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, port_);
-      }
       getUnknownFields().writeTo(output);
     }
 
@@ -1627,12 +1519,6 @@ public final class Iot {
       for (int i = 0; i < actuators_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, actuators_.get(i));
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ip_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, ip_);
-      }
-      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(port_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, port_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -1655,10 +1541,6 @@ public final class Iot {
           .equals(other.getSensorsList())) return false;
       if (!getActuatorsList()
           .equals(other.getActuatorsList())) return false;
-      if (!getIp()
-          .equals(other.getIp())) return false;
-      if (!getPort()
-          .equals(other.getPort())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1680,10 +1562,6 @@ public final class Iot {
         hash = (37 * hash) + ACTUATORS_FIELD_NUMBER;
         hash = (53 * hash) + getActuatorsList().hashCode();
       }
-      hash = (37 * hash) + IP_FIELD_NUMBER;
-      hash = (53 * hash) + getIp().hashCode();
-      hash = (37 * hash) + PORT_FIELD_NUMBER;
-      hash = (53 * hash) + getPort().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1828,10 +1706,6 @@ public final class Iot {
           actuatorsBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
-        ip_ = "";
-
-        port_ = "";
-
         return this;
       }
 
@@ -1878,8 +1752,6 @@ public final class Iot {
         } else {
           result.actuators_ = actuatorsBuilder_.build();
         }
-        result.ip_ = ip_;
-        result.port_ = port_;
         onBuilt();
         return result;
       }
@@ -1984,14 +1856,6 @@ public final class Iot {
             }
           }
         }
-        if (!other.getIp().isEmpty()) {
-          ip_ = other.ip_;
-          onChanged();
-        }
-        if (!other.getPort().isEmpty()) {
-          port_ = other.port_;
-          onChanged();
-        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -2049,16 +1913,6 @@ public final class Iot {
                 }
                 break;
               } // case 26
-              case 34: {
-                ip_ = input.readStringRequireUtf8();
-
-                break;
-              } // case 34
-              case 42: {
-                port_ = input.readStringRequireUtf8();
-
-                break;
-              } // case 42
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -2630,158 +2484,6 @@ public final class Iot {
           actuators_ = null;
         }
         return actuatorsBuilder_;
-      }
-
-      private java.lang.Object ip_ = "";
-      /**
-       * <code>string ip = 4;</code>
-       * @return The ip.
-       */
-      public java.lang.String getIp() {
-        java.lang.Object ref = ip_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          ip_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string ip = 4;</code>
-       * @return The bytes for ip.
-       */
-      public com.google.protobuf.ByteString
-          getIpBytes() {
-        java.lang.Object ref = ip_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          ip_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string ip = 4;</code>
-       * @param value The ip to set.
-       * @return This builder for chaining.
-       */
-      public Builder setIp(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        ip_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ip = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearIp() {
-        
-        ip_ = getDefaultInstance().getIp();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string ip = 4;</code>
-       * @param value The bytes for ip to set.
-       * @return This builder for chaining.
-       */
-      public Builder setIpBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        ip_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object port_ = "";
-      /**
-       * <code>string port = 5;</code>
-       * @return The port.
-       */
-      public java.lang.String getPort() {
-        java.lang.Object ref = port_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          port_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string port = 5;</code>
-       * @return The bytes for port.
-       */
-      public com.google.protobuf.ByteString
-          getPortBytes() {
-        java.lang.Object ref = port_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          port_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string port = 5;</code>
-       * @param value The port to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPort(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        port_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string port = 5;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearPort() {
-        
-        port_ = getDefaultInstance().getPort();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string port = 5;</code>
-       * @param value The bytes for port to set.
-       * @return This builder for chaining.
-       */
-      public Builder setPortBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        port_ = value;
-        onChanged();
-        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -3396,6 +3098,2237 @@ public final class Iot {
 
   }
 
+  public interface SendDataRequestMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:SendDataRequestMessage)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+     */
+    java.util.List<br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor> 
+        getSensorsList();
+    /**
+     * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+     */
+    br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor getSensors(int index);
+    /**
+     * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+     */
+    int getSensorsCount();
+    /**
+     * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+     */
+    java.util.List<? extends br.ufc.smarthome.models.Iot.SendDataRequestMessage.SensorOrBuilder> 
+        getSensorsOrBuilderList();
+    /**
+     * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+     */
+    br.ufc.smarthome.models.Iot.SendDataRequestMessage.SensorOrBuilder getSensorsOrBuilder(
+        int index);
+
+    /**
+     * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+     */
+    java.util.List<br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator> 
+        getActuatorsList();
+    /**
+     * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+     */
+    br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator getActuators(int index);
+    /**
+     * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+     */
+    int getActuatorsCount();
+    /**
+     * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+     */
+    java.util.List<? extends br.ufc.smarthome.models.Iot.SendDataRequestMessage.ActuatorOrBuilder> 
+        getActuatorsOrBuilderList();
+    /**
+     * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+     */
+    br.ufc.smarthome.models.Iot.SendDataRequestMessage.ActuatorOrBuilder getActuatorsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code SendDataRequestMessage}
+   */
+  public static final class SendDataRequestMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:SendDataRequestMessage)
+      SendDataRequestMessageOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SendDataRequestMessage.newBuilder() to construct.
+    private SendDataRequestMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SendDataRequestMessage() {
+      sensors_ = java.util.Collections.emptyList();
+      actuators_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new SendDataRequestMessage();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              br.ufc.smarthome.models.Iot.SendDataRequestMessage.class, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Builder.class);
+    }
+
+    public interface SensorOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:SendDataRequestMessage.Sensor)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>int32 id = 1;</code>
+       * @return The id.
+       */
+      int getId();
+
+      /**
+       * <code>double value = 2;</code>
+       * @return The value.
+       */
+      double getValue();
+    }
+    /**
+     * Protobuf type {@code SendDataRequestMessage.Sensor}
+     */
+    public static final class Sensor extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:SendDataRequestMessage.Sensor)
+        SensorOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use Sensor.newBuilder() to construct.
+      private Sensor(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private Sensor() {
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new Sensor();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_Sensor_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_Sensor_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.class, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.Builder.class);
+      }
+
+      public static final int ID_FIELD_NUMBER = 1;
+      private int id_;
+      /**
+       * <code>int32 id = 1;</code>
+       * @return The id.
+       */
+      @java.lang.Override
+      public int getId() {
+        return id_;
+      }
+
+      public static final int VALUE_FIELD_NUMBER = 2;
+      private double value_;
+      /**
+       * <code>double value = 2;</code>
+       * @return The value.
+       */
+      @java.lang.Override
+      public double getValue() {
+        return value_;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (id_ != 0) {
+          output.writeInt32(1, id_);
+        }
+        if (java.lang.Double.doubleToRawLongBits(value_) != 0) {
+          output.writeDouble(2, value_);
+        }
+        getUnknownFields().writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (id_ != 0) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(1, id_);
+        }
+        if (java.lang.Double.doubleToRawLongBits(value_) != 0) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeDoubleSize(2, value_);
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor)) {
+          return super.equals(obj);
+        }
+        br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor other = (br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor) obj;
+
+        if (getId()
+            != other.getId()) return false;
+        if (java.lang.Double.doubleToLongBits(getValue())
+            != java.lang.Double.doubleToLongBits(
+                other.getValue())) return false;
+        if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + ID_FIELD_NUMBER;
+        hash = (53 * hash) + getId();
+        hash = (37 * hash) + VALUE_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+            java.lang.Double.doubleToLongBits(getValue()));
+        hash = (29 * hash) + getUnknownFields().hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code SendDataRequestMessage.Sensor}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:SendDataRequestMessage.Sensor)
+          br.ufc.smarthome.models.Iot.SendDataRequestMessage.SensorOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_Sensor_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_Sensor_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.class, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.Builder.class);
+        }
+
+        // Construct using br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.newBuilder()
+        private Builder() {
+
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          id_ = 0;
+
+          value_ = 0D;
+
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_Sensor_descriptor;
+        }
+
+        @java.lang.Override
+        public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor getDefaultInstanceForType() {
+          return br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor build() {
+          br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor buildPartial() {
+          br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor result = new br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor(this);
+          result.id_ = id_;
+          result.value_ = value_;
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor) {
+            return mergeFrom((br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor other) {
+          if (other == br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.getDefaultInstance()) return this;
+          if (other.getId() != 0) {
+            setId(other.getId());
+          }
+          if (other.getValue() != 0D) {
+            setValue(other.getValue());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          if (extensionRegistry == null) {
+            throw new java.lang.NullPointerException();
+          }
+          try {
+            boolean done = false;
+            while (!done) {
+              int tag = input.readTag();
+              switch (tag) {
+                case 0:
+                  done = true;
+                  break;
+                case 8: {
+                  id_ = input.readInt32();
+
+                  break;
+                } // case 8
+                case 17: {
+                  value_ = input.readDouble();
+
+                  break;
+                } // case 17
+                default: {
+                  if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                    done = true; // was an endgroup tag
+                  }
+                  break;
+                } // default:
+              } // switch (tag)
+            } // while (!done)
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            throw e.unwrapIOException();
+          } finally {
+            onChanged();
+          } // finally
+          return this;
+        }
+
+        private int id_ ;
+        /**
+         * <code>int32 id = 1;</code>
+         * @return The id.
+         */
+        @java.lang.Override
+        public int getId() {
+          return id_;
+        }
+        /**
+         * <code>int32 id = 1;</code>
+         * @param value The id to set.
+         * @return This builder for chaining.
+         */
+        public Builder setId(int value) {
+          
+          id_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>int32 id = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearId() {
+          
+          id_ = 0;
+          onChanged();
+          return this;
+        }
+
+        private double value_ ;
+        /**
+         * <code>double value = 2;</code>
+         * @return The value.
+         */
+        @java.lang.Override
+        public double getValue() {
+          return value_;
+        }
+        /**
+         * <code>double value = 2;</code>
+         * @param value The value to set.
+         * @return This builder for chaining.
+         */
+        public Builder setValue(double value) {
+          
+          value_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>double value = 2;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearValue() {
+          
+          value_ = 0D;
+          onChanged();
+          return this;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:SendDataRequestMessage.Sensor)
+      }
+
+      // @@protoc_insertion_point(class_scope:SendDataRequestMessage.Sensor)
+      private static final br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor();
+      }
+
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<Sensor>
+          PARSER = new com.google.protobuf.AbstractParser<Sensor>() {
+        @java.lang.Override
+        public Sensor parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          Builder builder = newBuilder();
+          try {
+            builder.mergeFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            throw e.setUnfinishedMessage(builder.buildPartial());
+          } catch (com.google.protobuf.UninitializedMessageException e) {
+            throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+          } catch (java.io.IOException e) {
+            throw new com.google.protobuf.InvalidProtocolBufferException(e)
+                .setUnfinishedMessage(builder.buildPartial());
+          }
+          return builder.buildPartial();
+        }
+      };
+
+      public static com.google.protobuf.Parser<Sensor> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Sensor> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public interface ActuatorOrBuilder extends
+        // @@protoc_insertion_point(interface_extends:SendDataRequestMessage.Actuator)
+        com.google.protobuf.MessageOrBuilder {
+
+      /**
+       * <code>int32 id = 1;</code>
+       * @return The id.
+       */
+      int getId();
+
+      /**
+       * <code>bool state = 2;</code>
+       * @return The state.
+       */
+      boolean getState();
+    }
+    /**
+     * Protobuf type {@code SendDataRequestMessage.Actuator}
+     */
+    public static final class Actuator extends
+        com.google.protobuf.GeneratedMessageV3 implements
+        // @@protoc_insertion_point(message_implements:SendDataRequestMessage.Actuator)
+        ActuatorOrBuilder {
+    private static final long serialVersionUID = 0L;
+      // Use Actuator.newBuilder() to construct.
+      private Actuator(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+        super(builder);
+      }
+      private Actuator() {
+      }
+
+      @java.lang.Override
+      @SuppressWarnings({"unused"})
+      protected java.lang.Object newInstance(
+          UnusedPrivateParameter unused) {
+        return new Actuator();
+      }
+
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+      getUnknownFields() {
+        return this.unknownFields;
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_Actuator_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_Actuator_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.class, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.Builder.class);
+      }
+
+      public static final int ID_FIELD_NUMBER = 1;
+      private int id_;
+      /**
+       * <code>int32 id = 1;</code>
+       * @return The id.
+       */
+      @java.lang.Override
+      public int getId() {
+        return id_;
+      }
+
+      public static final int STATE_FIELD_NUMBER = 2;
+      private boolean state_;
+      /**
+       * <code>bool state = 2;</code>
+       * @return The state.
+       */
+      @java.lang.Override
+      public boolean getState() {
+        return state_;
+      }
+
+      private byte memoizedIsInitialized = -1;
+      @java.lang.Override
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized == 1) return true;
+        if (isInitialized == 0) return false;
+
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      @java.lang.Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        if (id_ != 0) {
+          output.writeInt32(1, id_);
+        }
+        if (state_ != false) {
+          output.writeBool(2, state_);
+        }
+        getUnknownFields().writeTo(output);
+      }
+
+      @java.lang.Override
+      public int getSerializedSize() {
+        int size = memoizedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (id_ != 0) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(1, id_);
+        }
+        if (state_ != false) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBoolSize(2, state_);
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSize = size;
+        return size;
+      }
+
+      @java.lang.Override
+      public boolean equals(final java.lang.Object obj) {
+        if (obj == this) {
+         return true;
+        }
+        if (!(obj instanceof br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator)) {
+          return super.equals(obj);
+        }
+        br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator other = (br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator) obj;
+
+        if (getId()
+            != other.getId()) return false;
+        if (getState()
+            != other.getState()) return false;
+        if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+        return true;
+      }
+
+      @java.lang.Override
+      public int hashCode() {
+        if (memoizedHashCode != 0) {
+          return memoizedHashCode;
+        }
+        int hash = 41;
+        hash = (19 * hash) + getDescriptor().hashCode();
+        hash = (37 * hash) + ID_FIELD_NUMBER;
+        hash = (53 * hash) + getId();
+        hash = (37 * hash) + STATE_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+            getState());
+        hash = (29 * hash) + getUnknownFields().hashCode();
+        memoizedHashCode = hash;
+        return hash;
+      }
+
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator parseFrom(
+          java.nio.ByteBuffer data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator parseFrom(
+          java.nio.ByteBuffer data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input);
+      }
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return com.google.protobuf.GeneratedMessageV3
+            .parseWithIOException(PARSER, input, extensionRegistry);
+      }
+
+      @java.lang.Override
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder() {
+        return DEFAULT_INSTANCE.toBuilder();
+      }
+      public static Builder newBuilder(br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator prototype) {
+        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+      }
+      @java.lang.Override
+      public Builder toBuilder() {
+        return this == DEFAULT_INSTANCE
+            ? new Builder() : new Builder().mergeFrom(this);
+      }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code SendDataRequestMessage.Actuator}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+          // @@protoc_insertion_point(builder_implements:SendDataRequestMessage.Actuator)
+          br.ufc.smarthome.models.Iot.SendDataRequestMessage.ActuatorOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_Actuator_descriptor;
+        }
+
+        @java.lang.Override
+        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_Actuator_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.class, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.Builder.class);
+        }
+
+        // Construct using br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.newBuilder()
+        private Builder() {
+
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          super(parent);
+
+        }
+        @java.lang.Override
+        public Builder clear() {
+          super.clear();
+          id_ = 0;
+
+          state_ = false;
+
+          return this;
+        }
+
+        @java.lang.Override
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_Actuator_descriptor;
+        }
+
+        @java.lang.Override
+        public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator getDefaultInstanceForType() {
+          return br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.getDefaultInstance();
+        }
+
+        @java.lang.Override
+        public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator build() {
+          br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        @java.lang.Override
+        public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator buildPartial() {
+          br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator result = new br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator(this);
+          result.id_ = id_;
+          result.state_ = state_;
+          onBuilt();
+          return result;
+        }
+
+        @java.lang.Override
+        public Builder clone() {
+          return super.clone();
+        }
+        @java.lang.Override
+        public Builder setField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.setField(field, value);
+        }
+        @java.lang.Override
+        public Builder clearField(
+            com.google.protobuf.Descriptors.FieldDescriptor field) {
+          return super.clearField(field);
+        }
+        @java.lang.Override
+        public Builder clearOneof(
+            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+          return super.clearOneof(oneof);
+        }
+        @java.lang.Override
+        public Builder setRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            int index, java.lang.Object value) {
+          return super.setRepeatedField(field, index, value);
+        }
+        @java.lang.Override
+        public Builder addRepeatedField(
+            com.google.protobuf.Descriptors.FieldDescriptor field,
+            java.lang.Object value) {
+          return super.addRepeatedField(field, value);
+        }
+        @java.lang.Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator) {
+            return mergeFrom((br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator other) {
+          if (other == br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.getDefaultInstance()) return this;
+          if (other.getId() != 0) {
+            setId(other.getId());
+          }
+          if (other.getState() != false) {
+            setState(other.getState());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          onChanged();
+          return this;
+        }
+
+        @java.lang.Override
+        public final boolean isInitialized() {
+          return true;
+        }
+
+        @java.lang.Override
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          if (extensionRegistry == null) {
+            throw new java.lang.NullPointerException();
+          }
+          try {
+            boolean done = false;
+            while (!done) {
+              int tag = input.readTag();
+              switch (tag) {
+                case 0:
+                  done = true;
+                  break;
+                case 8: {
+                  id_ = input.readInt32();
+
+                  break;
+                } // case 8
+                case 16: {
+                  state_ = input.readBool();
+
+                  break;
+                } // case 16
+                default: {
+                  if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                    done = true; // was an endgroup tag
+                  }
+                  break;
+                } // default:
+              } // switch (tag)
+            } // while (!done)
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            throw e.unwrapIOException();
+          } finally {
+            onChanged();
+          } // finally
+          return this;
+        }
+
+        private int id_ ;
+        /**
+         * <code>int32 id = 1;</code>
+         * @return The id.
+         */
+        @java.lang.Override
+        public int getId() {
+          return id_;
+        }
+        /**
+         * <code>int32 id = 1;</code>
+         * @param value The id to set.
+         * @return This builder for chaining.
+         */
+        public Builder setId(int value) {
+          
+          id_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>int32 id = 1;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearId() {
+          
+          id_ = 0;
+          onChanged();
+          return this;
+        }
+
+        private boolean state_ ;
+        /**
+         * <code>bool state = 2;</code>
+         * @return The state.
+         */
+        @java.lang.Override
+        public boolean getState() {
+          return state_;
+        }
+        /**
+         * <code>bool state = 2;</code>
+         * @param value The state to set.
+         * @return This builder for chaining.
+         */
+        public Builder setState(boolean value) {
+          
+          state_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>bool state = 2;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearState() {
+          
+          state_ = false;
+          onChanged();
+          return this;
+        }
+        @java.lang.Override
+        public final Builder setUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.setUnknownFields(unknownFields);
+        }
+
+        @java.lang.Override
+        public final Builder mergeUnknownFields(
+            final com.google.protobuf.UnknownFieldSet unknownFields) {
+          return super.mergeUnknownFields(unknownFields);
+        }
+
+
+        // @@protoc_insertion_point(builder_scope:SendDataRequestMessage.Actuator)
+      }
+
+      // @@protoc_insertion_point(class_scope:SendDataRequestMessage.Actuator)
+      private static final br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator DEFAULT_INSTANCE;
+      static {
+        DEFAULT_INSTANCE = new br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator();
+      }
+
+      public static br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator getDefaultInstance() {
+        return DEFAULT_INSTANCE;
+      }
+
+      private static final com.google.protobuf.Parser<Actuator>
+          PARSER = new com.google.protobuf.AbstractParser<Actuator>() {
+        @java.lang.Override
+        public Actuator parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          Builder builder = newBuilder();
+          try {
+            builder.mergeFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            throw e.setUnfinishedMessage(builder.buildPartial());
+          } catch (com.google.protobuf.UninitializedMessageException e) {
+            throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+          } catch (java.io.IOException e) {
+            throw new com.google.protobuf.InvalidProtocolBufferException(e)
+                .setUnfinishedMessage(builder.buildPartial());
+          }
+          return builder.buildPartial();
+        }
+      };
+
+      public static com.google.protobuf.Parser<Actuator> parser() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Actuator> getParserForType() {
+        return PARSER;
+      }
+
+      @java.lang.Override
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator getDefaultInstanceForType() {
+        return DEFAULT_INSTANCE;
+      }
+
+    }
+
+    public static final int SENSORS_FIELD_NUMBER = 1;
+    private java.util.List<br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor> sensors_;
+    /**
+     * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor> getSensorsList() {
+      return sensors_;
+    }
+    /**
+     * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends br.ufc.smarthome.models.Iot.SendDataRequestMessage.SensorOrBuilder> 
+        getSensorsOrBuilderList() {
+      return sensors_;
+    }
+    /**
+     * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+     */
+    @java.lang.Override
+    public int getSensorsCount() {
+      return sensors_.size();
+    }
+    /**
+     * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+     */
+    @java.lang.Override
+    public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor getSensors(int index) {
+      return sensors_.get(index);
+    }
+    /**
+     * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+     */
+    @java.lang.Override
+    public br.ufc.smarthome.models.Iot.SendDataRequestMessage.SensorOrBuilder getSensorsOrBuilder(
+        int index) {
+      return sensors_.get(index);
+    }
+
+    public static final int ACTUATORS_FIELD_NUMBER = 2;
+    private java.util.List<br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator> actuators_;
+    /**
+     * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator> getActuatorsList() {
+      return actuators_;
+    }
+    /**
+     * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+     */
+    @java.lang.Override
+    public java.util.List<? extends br.ufc.smarthome.models.Iot.SendDataRequestMessage.ActuatorOrBuilder> 
+        getActuatorsOrBuilderList() {
+      return actuators_;
+    }
+    /**
+     * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+     */
+    @java.lang.Override
+    public int getActuatorsCount() {
+      return actuators_.size();
+    }
+    /**
+     * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+     */
+    @java.lang.Override
+    public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator getActuators(int index) {
+      return actuators_.get(index);
+    }
+    /**
+     * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+     */
+    @java.lang.Override
+    public br.ufc.smarthome.models.Iot.SendDataRequestMessage.ActuatorOrBuilder getActuatorsOrBuilder(
+        int index) {
+      return actuators_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < sensors_.size(); i++) {
+        output.writeMessage(1, sensors_.get(i));
+      }
+      for (int i = 0; i < actuators_.size(); i++) {
+        output.writeMessage(2, actuators_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < sensors_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, sensors_.get(i));
+      }
+      for (int i = 0; i < actuators_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, actuators_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof br.ufc.smarthome.models.Iot.SendDataRequestMessage)) {
+        return super.equals(obj);
+      }
+      br.ufc.smarthome.models.Iot.SendDataRequestMessage other = (br.ufc.smarthome.models.Iot.SendDataRequestMessage) obj;
+
+      if (!getSensorsList()
+          .equals(other.getSensorsList())) return false;
+      if (!getActuatorsList()
+          .equals(other.getActuatorsList())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getSensorsCount() > 0) {
+        hash = (37 * hash) + SENSORS_FIELD_NUMBER;
+        hash = (53 * hash) + getSensorsList().hashCode();
+      }
+      if (getActuatorsCount() > 0) {
+        hash = (37 * hash) + ACTUATORS_FIELD_NUMBER;
+        hash = (53 * hash) + getActuatorsList().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static br.ufc.smarthome.models.Iot.SendDataRequestMessage parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static br.ufc.smarthome.models.Iot.SendDataRequestMessage parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static br.ufc.smarthome.models.Iot.SendDataRequestMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static br.ufc.smarthome.models.Iot.SendDataRequestMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static br.ufc.smarthome.models.Iot.SendDataRequestMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static br.ufc.smarthome.models.Iot.SendDataRequestMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static br.ufc.smarthome.models.Iot.SendDataRequestMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static br.ufc.smarthome.models.Iot.SendDataRequestMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static br.ufc.smarthome.models.Iot.SendDataRequestMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static br.ufc.smarthome.models.Iot.SendDataRequestMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static br.ufc.smarthome.models.Iot.SendDataRequestMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static br.ufc.smarthome.models.Iot.SendDataRequestMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(br.ufc.smarthome.models.Iot.SendDataRequestMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code SendDataRequestMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:SendDataRequestMessage)
+        br.ufc.smarthome.models.Iot.SendDataRequestMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                br.ufc.smarthome.models.Iot.SendDataRequestMessage.class, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Builder.class);
+      }
+
+      // Construct using br.ufc.smarthome.models.Iot.SendDataRequestMessage.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (sensorsBuilder_ == null) {
+          sensors_ = java.util.Collections.emptyList();
+        } else {
+          sensors_ = null;
+          sensorsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (actuatorsBuilder_ == null) {
+          actuators_ = java.util.Collections.emptyList();
+        } else {
+          actuators_ = null;
+          actuatorsBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return br.ufc.smarthome.models.Iot.internal_static_SendDataRequestMessage_descriptor;
+      }
+
+      @java.lang.Override
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage getDefaultInstanceForType() {
+        return br.ufc.smarthome.models.Iot.SendDataRequestMessage.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage build() {
+        br.ufc.smarthome.models.Iot.SendDataRequestMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage buildPartial() {
+        br.ufc.smarthome.models.Iot.SendDataRequestMessage result = new br.ufc.smarthome.models.Iot.SendDataRequestMessage(this);
+        int from_bitField0_ = bitField0_;
+        if (sensorsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            sensors_ = java.util.Collections.unmodifiableList(sensors_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.sensors_ = sensors_;
+        } else {
+          result.sensors_ = sensorsBuilder_.build();
+        }
+        if (actuatorsBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) != 0)) {
+            actuators_ = java.util.Collections.unmodifiableList(actuators_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.actuators_ = actuators_;
+        } else {
+          result.actuators_ = actuatorsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof br.ufc.smarthome.models.Iot.SendDataRequestMessage) {
+          return mergeFrom((br.ufc.smarthome.models.Iot.SendDataRequestMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(br.ufc.smarthome.models.Iot.SendDataRequestMessage other) {
+        if (other == br.ufc.smarthome.models.Iot.SendDataRequestMessage.getDefaultInstance()) return this;
+        if (sensorsBuilder_ == null) {
+          if (!other.sensors_.isEmpty()) {
+            if (sensors_.isEmpty()) {
+              sensors_ = other.sensors_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureSensorsIsMutable();
+              sensors_.addAll(other.sensors_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.sensors_.isEmpty()) {
+            if (sensorsBuilder_.isEmpty()) {
+              sensorsBuilder_.dispose();
+              sensorsBuilder_ = null;
+              sensors_ = other.sensors_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              sensorsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSensorsFieldBuilder() : null;
+            } else {
+              sensorsBuilder_.addAllMessages(other.sensors_);
+            }
+          }
+        }
+        if (actuatorsBuilder_ == null) {
+          if (!other.actuators_.isEmpty()) {
+            if (actuators_.isEmpty()) {
+              actuators_ = other.actuators_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureActuatorsIsMutable();
+              actuators_.addAll(other.actuators_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.actuators_.isEmpty()) {
+            if (actuatorsBuilder_.isEmpty()) {
+              actuatorsBuilder_.dispose();
+              actuatorsBuilder_ = null;
+              actuators_ = other.actuators_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              actuatorsBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getActuatorsFieldBuilder() : null;
+            } else {
+              actuatorsBuilder_.addAllMessages(other.actuators_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor m =
+                    input.readMessage(
+                        br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.parser(),
+                        extensionRegistry);
+                if (sensorsBuilder_ == null) {
+                  ensureSensorsIsMutable();
+                  sensors_.add(m);
+                } else {
+                  sensorsBuilder_.addMessage(m);
+                }
+                break;
+              } // case 10
+              case 18: {
+                br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator m =
+                    input.readMessage(
+                        br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.parser(),
+                        extensionRegistry);
+                if (actuatorsBuilder_ == null) {
+                  ensureActuatorsIsMutable();
+                  actuators_.add(m);
+                } else {
+                  actuatorsBuilder_.addMessage(m);
+                }
+                break;
+              } // case 18
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor> sensors_ =
+        java.util.Collections.emptyList();
+      private void ensureSensorsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          sensors_ = new java.util.ArrayList<br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor>(sensors_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.Builder, br.ufc.smarthome.models.Iot.SendDataRequestMessage.SensorOrBuilder> sensorsBuilder_;
+
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public java.util.List<br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor> getSensorsList() {
+        if (sensorsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(sensors_);
+        } else {
+          return sensorsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public int getSensorsCount() {
+        if (sensorsBuilder_ == null) {
+          return sensors_.size();
+        } else {
+          return sensorsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor getSensors(int index) {
+        if (sensorsBuilder_ == null) {
+          return sensors_.get(index);
+        } else {
+          return sensorsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public Builder setSensors(
+          int index, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor value) {
+        if (sensorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSensorsIsMutable();
+          sensors_.set(index, value);
+          onChanged();
+        } else {
+          sensorsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public Builder setSensors(
+          int index, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.Builder builderForValue) {
+        if (sensorsBuilder_ == null) {
+          ensureSensorsIsMutable();
+          sensors_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          sensorsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public Builder addSensors(br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor value) {
+        if (sensorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSensorsIsMutable();
+          sensors_.add(value);
+          onChanged();
+        } else {
+          sensorsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public Builder addSensors(
+          int index, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor value) {
+        if (sensorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSensorsIsMutable();
+          sensors_.add(index, value);
+          onChanged();
+        } else {
+          sensorsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public Builder addSensors(
+          br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.Builder builderForValue) {
+        if (sensorsBuilder_ == null) {
+          ensureSensorsIsMutable();
+          sensors_.add(builderForValue.build());
+          onChanged();
+        } else {
+          sensorsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public Builder addSensors(
+          int index, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.Builder builderForValue) {
+        if (sensorsBuilder_ == null) {
+          ensureSensorsIsMutable();
+          sensors_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          sensorsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public Builder addAllSensors(
+          java.lang.Iterable<? extends br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor> values) {
+        if (sensorsBuilder_ == null) {
+          ensureSensorsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, sensors_);
+          onChanged();
+        } else {
+          sensorsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public Builder clearSensors() {
+        if (sensorsBuilder_ == null) {
+          sensors_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          sensorsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public Builder removeSensors(int index) {
+        if (sensorsBuilder_ == null) {
+          ensureSensorsIsMutable();
+          sensors_.remove(index);
+          onChanged();
+        } else {
+          sensorsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.Builder getSensorsBuilder(
+          int index) {
+        return getSensorsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage.SensorOrBuilder getSensorsOrBuilder(
+          int index) {
+        if (sensorsBuilder_ == null) {
+          return sensors_.get(index);  } else {
+          return sensorsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public java.util.List<? extends br.ufc.smarthome.models.Iot.SendDataRequestMessage.SensorOrBuilder> 
+           getSensorsOrBuilderList() {
+        if (sensorsBuilder_ != null) {
+          return sensorsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(sensors_);
+        }
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.Builder addSensorsBuilder() {
+        return getSensorsFieldBuilder().addBuilder(
+            br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.Builder addSensorsBuilder(
+          int index) {
+        return getSensorsFieldBuilder().addBuilder(
+            index, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Sensor sensors = 1;</code>
+       */
+      public java.util.List<br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.Builder> 
+           getSensorsBuilderList() {
+        return getSensorsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.Builder, br.ufc.smarthome.models.Iot.SendDataRequestMessage.SensorOrBuilder> 
+          getSensorsFieldBuilder() {
+        if (sensorsBuilder_ == null) {
+          sensorsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Sensor.Builder, br.ufc.smarthome.models.Iot.SendDataRequestMessage.SensorOrBuilder>(
+                  sensors_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          sensors_ = null;
+        }
+        return sensorsBuilder_;
+      }
+
+      private java.util.List<br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator> actuators_ =
+        java.util.Collections.emptyList();
+      private void ensureActuatorsIsMutable() {
+        if (!((bitField0_ & 0x00000002) != 0)) {
+          actuators_ = new java.util.ArrayList<br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator>(actuators_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.Builder, br.ufc.smarthome.models.Iot.SendDataRequestMessage.ActuatorOrBuilder> actuatorsBuilder_;
+
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public java.util.List<br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator> getActuatorsList() {
+        if (actuatorsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(actuators_);
+        } else {
+          return actuatorsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public int getActuatorsCount() {
+        if (actuatorsBuilder_ == null) {
+          return actuators_.size();
+        } else {
+          return actuatorsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator getActuators(int index) {
+        if (actuatorsBuilder_ == null) {
+          return actuators_.get(index);
+        } else {
+          return actuatorsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public Builder setActuators(
+          int index, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator value) {
+        if (actuatorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureActuatorsIsMutable();
+          actuators_.set(index, value);
+          onChanged();
+        } else {
+          actuatorsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public Builder setActuators(
+          int index, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.Builder builderForValue) {
+        if (actuatorsBuilder_ == null) {
+          ensureActuatorsIsMutable();
+          actuators_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          actuatorsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public Builder addActuators(br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator value) {
+        if (actuatorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureActuatorsIsMutable();
+          actuators_.add(value);
+          onChanged();
+        } else {
+          actuatorsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public Builder addActuators(
+          int index, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator value) {
+        if (actuatorsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureActuatorsIsMutable();
+          actuators_.add(index, value);
+          onChanged();
+        } else {
+          actuatorsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public Builder addActuators(
+          br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.Builder builderForValue) {
+        if (actuatorsBuilder_ == null) {
+          ensureActuatorsIsMutable();
+          actuators_.add(builderForValue.build());
+          onChanged();
+        } else {
+          actuatorsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public Builder addActuators(
+          int index, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.Builder builderForValue) {
+        if (actuatorsBuilder_ == null) {
+          ensureActuatorsIsMutable();
+          actuators_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          actuatorsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public Builder addAllActuators(
+          java.lang.Iterable<? extends br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator> values) {
+        if (actuatorsBuilder_ == null) {
+          ensureActuatorsIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, actuators_);
+          onChanged();
+        } else {
+          actuatorsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public Builder clearActuators() {
+        if (actuatorsBuilder_ == null) {
+          actuators_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          actuatorsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public Builder removeActuators(int index) {
+        if (actuatorsBuilder_ == null) {
+          ensureActuatorsIsMutable();
+          actuators_.remove(index);
+          onChanged();
+        } else {
+          actuatorsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.Builder getActuatorsBuilder(
+          int index) {
+        return getActuatorsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage.ActuatorOrBuilder getActuatorsOrBuilder(
+          int index) {
+        if (actuatorsBuilder_ == null) {
+          return actuators_.get(index);  } else {
+          return actuatorsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public java.util.List<? extends br.ufc.smarthome.models.Iot.SendDataRequestMessage.ActuatorOrBuilder> 
+           getActuatorsOrBuilderList() {
+        if (actuatorsBuilder_ != null) {
+          return actuatorsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(actuators_);
+        }
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.Builder addActuatorsBuilder() {
+        return getActuatorsFieldBuilder().addBuilder(
+            br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.Builder addActuatorsBuilder(
+          int index) {
+        return getActuatorsFieldBuilder().addBuilder(
+            index, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .SendDataRequestMessage.Actuator actuators = 2;</code>
+       */
+      public java.util.List<br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.Builder> 
+           getActuatorsBuilderList() {
+        return getActuatorsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.Builder, br.ufc.smarthome.models.Iot.SendDataRequestMessage.ActuatorOrBuilder> 
+          getActuatorsFieldBuilder() {
+        if (actuatorsBuilder_ == null) {
+          actuatorsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator, br.ufc.smarthome.models.Iot.SendDataRequestMessage.Actuator.Builder, br.ufc.smarthome.models.Iot.SendDataRequestMessage.ActuatorOrBuilder>(
+                  actuators_,
+                  ((bitField0_ & 0x00000002) != 0),
+                  getParentForChildren(),
+                  isClean());
+          actuators_ = null;
+        }
+        return actuatorsBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:SendDataRequestMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:SendDataRequestMessage)
+    private static final br.ufc.smarthome.models.Iot.SendDataRequestMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new br.ufc.smarthome.models.Iot.SendDataRequestMessage();
+    }
+
+    public static br.ufc.smarthome.models.Iot.SendDataRequestMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SendDataRequestMessage>
+        PARSER = new com.google.protobuf.AbstractParser<SendDataRequestMessage>() {
+      @java.lang.Override
+      public SendDataRequestMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<SendDataRequestMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SendDataRequestMessage> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public br.ufc.smarthome.models.Iot.SendDataRequestMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_JoinRequestMessage_descriptor;
   private static final 
@@ -3416,6 +5349,21 @@ public final class Iot {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_JoinResponseMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_SendDataRequestMessage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_SendDataRequestMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_SendDataRequestMessage_Sensor_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_SendDataRequestMessage_Sensor_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_SendDataRequestMessage_Actuator_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_SendDataRequestMessage_Actuator_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -3425,15 +5373,19 @@ public final class Iot {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\022protobuf/iot.proto\"\344\001\n\022JoinRequestMess" +
+      "\n\022protobuf/iot.proto\"\312\001\n\022JoinRequestMess" +
       "age\022\014\n\004name\030\001 \001(\t\022+\n\007sensors\030\002 \003(\0132\032.Joi" +
       "nRequestMessage.Sensor\022/\n\tactuators\030\003 \003(" +
-      "\0132\034.JoinRequestMessage.Actuator\022\n\n\002ip\030\004 " +
-      "\001(\t\022\014\n\004port\030\005 \001(\t\032\"\n\006Sensor\022\n\n\002id\030\001 \001(\005\022" +
-      "\014\n\004name\030\002 \001(\t\032$\n\010Actuator\022\n\n\002id\030\001 \001(\005\022\014\n" +
-      "\004name\030\002 \001(\t\"!\n\023JoinResponseMessage\022\n\n\002id" +
-      "\030\001 \001(\tB\036\n\027br.ufc.smarthome.modelsB\003Iotb\006" +
-      "proto3"
+      "\0132\034.JoinRequestMessage.Actuator\032\"\n\006Senso" +
+      "r\022\n\n\002id\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\032$\n\010Actuator\022" +
+      "\n\n\002id\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\"!\n\023JoinRespons" +
+      "eMessage\022\n\n\002id\030\001 \001(\t\"\312\001\n\026SendDataRequest" +
+      "Message\022/\n\007sensors\030\001 \003(\0132\036.SendDataReque" +
+      "stMessage.Sensor\0223\n\tactuators\030\002 \003(\0132 .Se" +
+      "ndDataRequestMessage.Actuator\032#\n\006Sensor\022" +
+      "\n\n\002id\030\001 \001(\005\022\r\n\005value\030\002 \001(\001\032%\n\010Actuator\022\n" +
+      "\n\002id\030\001 \001(\005\022\r\n\005state\030\002 \001(\010B\036\n\027br.ufc.smar" +
+      "thome.modelsB\003Iotb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -3444,7 +5396,7 @@ public final class Iot {
     internal_static_JoinRequestMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_JoinRequestMessage_descriptor,
-        new java.lang.String[] { "Name", "Sensors", "Actuators", "Ip", "Port", });
+        new java.lang.String[] { "Name", "Sensors", "Actuators", });
     internal_static_JoinRequestMessage_Sensor_descriptor =
       internal_static_JoinRequestMessage_descriptor.getNestedTypes().get(0);
     internal_static_JoinRequestMessage_Sensor_fieldAccessorTable = new
@@ -3463,6 +5415,24 @@ public final class Iot {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_JoinResponseMessage_descriptor,
         new java.lang.String[] { "Id", });
+    internal_static_SendDataRequestMessage_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_SendDataRequestMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_SendDataRequestMessage_descriptor,
+        new java.lang.String[] { "Sensors", "Actuators", });
+    internal_static_SendDataRequestMessage_Sensor_descriptor =
+      internal_static_SendDataRequestMessage_descriptor.getNestedTypes().get(0);
+    internal_static_SendDataRequestMessage_Sensor_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_SendDataRequestMessage_Sensor_descriptor,
+        new java.lang.String[] { "Id", "Value", });
+    internal_static_SendDataRequestMessage_Actuator_descriptor =
+      internal_static_SendDataRequestMessage_descriptor.getNestedTypes().get(1);
+    internal_static_SendDataRequestMessage_Actuator_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_SendDataRequestMessage_Actuator_descriptor,
+        new java.lang.String[] { "Id", "State", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

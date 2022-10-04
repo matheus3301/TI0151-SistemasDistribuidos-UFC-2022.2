@@ -2,13 +2,14 @@
 //version must be 3.21.7
 syntax = "proto3";
 
-option java_package = "br.ufc.smarthome.models";
+option java_package = "br.ufc.smarthome.entities";
 option java_outer_classname = "Api";
 
 message Device {
   string id = 1;
   string name = 2;
   repeated Sensor sensors = 3;
+  repetaed Actuator actuators = 4;
 
   message Sensor {
     int32 id = 1;
@@ -18,10 +19,6 @@ message Device {
   message Actuator {
     int32 id = 1;
     string name = 2;
-
-    message ActuatorState {
-      string stateName = 1;
-    }
   }
 
 }
