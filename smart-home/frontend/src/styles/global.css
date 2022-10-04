@@ -36,6 +36,18 @@
     color: #ffffff;
 }
 
+.ant-space-item button:focus {
+    background-color: #164c7e;
+    border-color: #164c7e;
+    color: #ffffff;
+}
+
 .logo h1{
     color: #ffffff;
+}
+
+@media (max-width: 1199px) {
+    .ant-layout-content {
+        padding: 0 0px !important;
+    }
 }

@@ -11,6 +11,7 @@
     "antd": "^4.23.4",
     "axios": "^0.27.2",
     "dotenv": "^16.0.3",
+    "prop-types": "^15.8.1",
     "protobufjs": "^7.1.2",
     "protobufjs-cli": "^1.0.2",
     "react": "^18.2.0",
