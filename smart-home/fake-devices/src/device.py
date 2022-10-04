@@ -58,7 +58,7 @@ class Device:
 
     
     def listen_to_gateway_messages(self):
-        
+        pass
 
 
     def initiate_actuators_state(self):
