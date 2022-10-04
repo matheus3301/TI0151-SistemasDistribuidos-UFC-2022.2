@@ -4,6 +4,7 @@
     box-sizing: border-box;
     outline: 0 !important;
     margin: 0;
+    overflow-x: hidden;
 }
 
 .app-container {
@@ -50,4 +51,8 @@
     .ant-layout-content {
         padding: 0 0px !important;
     }
+}
+
+button {
+    border-radius: 4px !important;
 }
