@@ -77,6 +77,24 @@ public final class Iot {
      */
     br.ufc.smarthome.models.Iot.JoinRequestMessage.ActuatorOrBuilder getActuatorsOrBuilder(
         int index);
+
+    /**
+     * <code>string udp_ip = 4;</code>
+     * @return The udpIp.
+     */
+    java.lang.String getUdpIp();
+    /**
+     * <code>string udp_ip = 4;</code>
+     * @return The bytes for udpIp.
+     */
+    com.google.protobuf.ByteString
+        getUdpIpBytes();
+
+    /**
+     * <code>int32 udp_port = 5;</code>
+     * @return The udpPort.
+     */
+    int getUdpPort();
   }
   /**
    * Protobuf type {@code JoinRequestMessage}
@@ -94,6 +112,7 @@ public final class Iot {
       name_ = "";
       sensors_ = java.util.Collections.emptyList();
       actuators_ = java.util.Collections.emptyList();
+      udpIp_ = "";
     }
 
     @java.lang.Override
@@ -1477,6 +1496,55 @@ public final class Iot {
       return actuators_.get(index);
     }
 
+    public static final int UDP_IP_FIELD_NUMBER = 4;
+    private volatile java.lang.Object udpIp_;
+    /**
+     * <code>string udp_ip = 4;</code>
+     * @return The udpIp.
+     */
+    @java.lang.Override
+    public java.lang.String getUdpIp() {
+      java.lang.Object ref = udpIp_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        udpIp_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string udp_ip = 4;</code>
+     * @return The bytes for udpIp.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUdpIpBytes() {
+      java.lang.Object ref = udpIp_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        udpIp_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int UDP_PORT_FIELD_NUMBER = 5;
+    private int udpPort_;
+    /**
+     * <code>int32 udp_port = 5;</code>
+     * @return The udpPort.
+     */
+    @java.lang.Override
+    public int getUdpPort() {
+      return udpPort_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1500,6 +1568,12 @@ public final class Iot {
       for (int i = 0; i < actuators_.size(); i++) {
         output.writeMessage(3, actuators_.get(i));
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(udpIp_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, udpIp_);
+      }
+      if (udpPort_ != 0) {
+        output.writeInt32(5, udpPort_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -1519,6 +1593,13 @@ public final class Iot {
       for (int i = 0; i < actuators_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, actuators_.get(i));
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(udpIp_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, udpIp_);
+      }
+      if (udpPort_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, udpPort_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -1541,6 +1622,10 @@ public final class Iot {
           .equals(other.getSensorsList())) return false;
       if (!getActuatorsList()
           .equals(other.getActuatorsList())) return false;
+      if (!getUdpIp()
+          .equals(other.getUdpIp())) return false;
+      if (getUdpPort()
+          != other.getUdpPort()) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1562,6 +1647,10 @@ public final class Iot {
         hash = (37 * hash) + ACTUATORS_FIELD_NUMBER;
         hash = (53 * hash) + getActuatorsList().hashCode();
       }
+      hash = (37 * hash) + UDP_IP_FIELD_NUMBER;
+      hash = (53 * hash) + getUdpIp().hashCode();
+      hash = (37 * hash) + UDP_PORT_FIELD_NUMBER;
+      hash = (53 * hash) + getUdpPort();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1706,6 +1795,10 @@ public final class Iot {
           actuatorsBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
+        udpIp_ = "";
+
+        udpPort_ = 0;
+
         return this;
       }
 
@@ -1752,6 +1845,8 @@ public final class Iot {
         } else {
           result.actuators_ = actuatorsBuilder_.build();
         }
+        result.udpIp_ = udpIp_;
+        result.udpPort_ = udpPort_;
         onBuilt();
         return result;
       }
@@ -1856,6 +1951,13 @@ public final class Iot {
             }
           }
         }
+        if (!other.getUdpIp().isEmpty()) {
+          udpIp_ = other.udpIp_;
+          onChanged();
+        }
+        if (other.getUdpPort() != 0) {
+          setUdpPort(other.getUdpPort());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -1913,6 +2015,16 @@ public final class Iot {
                 }
                 break;
               } // case 26
+              case 34: {
+                udpIp_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 34
+              case 40: {
+                udpPort_ = input.readInt32();
+
+                break;
+              } // case 40
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -2484,6 +2596,113 @@ public final class Iot {
           actuators_ = null;
         }
         return actuatorsBuilder_;
+      }
+
+      private java.lang.Object udpIp_ = "";
+      /**
+       * <code>string udp_ip = 4;</code>
+       * @return The udpIp.
+       */
+      public java.lang.String getUdpIp() {
+        java.lang.Object ref = udpIp_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          udpIp_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string udp_ip = 4;</code>
+       * @return The bytes for udpIp.
+       */
+      public com.google.protobuf.ByteString
+          getUdpIpBytes() {
+        java.lang.Object ref = udpIp_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          udpIp_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string udp_ip = 4;</code>
+       * @param value The udpIp to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUdpIp(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        udpIp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string udp_ip = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUdpIp() {
+        
+        udpIp_ = getDefaultInstance().getUdpIp();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string udp_ip = 4;</code>
+       * @param value The bytes for udpIp to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUdpIpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        udpIp_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int udpPort_ ;
+      /**
+       * <code>int32 udp_port = 5;</code>
+       * @return The udpPort.
+       */
+      @java.lang.Override
+      public int getUdpPort() {
+        return udpPort_;
+      }
+      /**
+       * <code>int32 udp_port = 5;</code>
+       * @param value The udpPort to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUdpPort(int value) {
+        
+        udpPort_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 udp_port = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUdpPort() {
+        
+        udpPort_ = 0;
+        onChanged();
+        return this;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -5373,19 +5592,20 @@ public final class Iot {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\022protobuf/iot.proto\"\312\001\n\022JoinRequestMess" +
+      "\n\022protobuf/iot.proto\"\354\001\n\022JoinRequestMess" +
       "age\022\014\n\004name\030\001 \001(\t\022+\n\007sensors\030\002 \003(\0132\032.Joi" +
       "nRequestMessage.Sensor\022/\n\tactuators\030\003 \003(" +
-      "\0132\034.JoinRequestMessage.Actuator\032\"\n\006Senso" +
-      "r\022\n\n\002id\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\032$\n\010Actuator\022" +
-      "\n\n\002id\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\"!\n\023JoinRespons" +
-      "eMessage\022\n\n\002id\030\001 \001(\t\"\312\001\n\026SendDataRequest" +
-      "Message\022/\n\007sensors\030\001 \003(\0132\036.SendDataReque" +
-      "stMessage.Sensor\0223\n\tactuators\030\002 \003(\0132 .Se" +
-      "ndDataRequestMessage.Actuator\032#\n\006Sensor\022" +
-      "\n\n\002id\030\001 \001(\005\022\r\n\005value\030\002 \001(\001\032%\n\010Actuator\022\n" +
-      "\n\002id\030\001 \001(\005\022\r\n\005state\030\002 \001(\010B\036\n\027br.ufc.smar" +
-      "thome.modelsB\003Iotb\006proto3"
+      "\0132\034.JoinRequestMessage.Actuator\022\016\n\006udp_i" +
+      "p\030\004 \001(\t\022\020\n\010udp_port\030\005 \001(\005\032\"\n\006Sensor\022\n\n\002i" +
+      "d\030\001 \001(\005\022\014\n\004name\030\002 \001(\t\032$\n\010Actuator\022\n\n\002id\030" +
+      "\001 \001(\005\022\014\n\004name\030\002 \001(\t\"!\n\023JoinResponseMessa" +
+      "ge\022\n\n\002id\030\001 \001(\t\"\312\001\n\026SendDataRequestMessag" +
+      "e\022/\n\007sensors\030\001 \003(\0132\036.SendDataRequestMess" +
+      "age.Sensor\0223\n\tactuators\030\002 \003(\0132 .SendData" +
+      "RequestMessage.Actuator\032#\n\006Sensor\022\n\n\002id\030" +
+      "\001 \001(\005\022\r\n\005value\030\002 \001(\001\032%\n\010Actuator\022\n\n\002id\030\001" +
+      " \001(\005\022\r\n\005state\030\002 \001(\010B\036\n\027br.ufc.smarthome." +
+      "modelsB\003Iotb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -5396,7 +5616,7 @@ public final class Iot {
     internal_static_JoinRequestMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_JoinRequestMessage_descriptor,
-        new java.lang.String[] { "Name", "Sensors", "Actuators", });
+        new java.lang.String[] { "Name", "Sensors", "Actuators", "UdpIp", "UdpPort", });
     internal_static_JoinRequestMessage_Sensor_descriptor =
       internal_static_JoinRequestMessage_descriptor.getNestedTypes().get(0);
     internal_static_JoinRequestMessage_Sensor_fieldAccessorTable = new

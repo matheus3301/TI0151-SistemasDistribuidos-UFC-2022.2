@@ -63,14 +63,13 @@ public class IotController {
     Iot.JoinResponseMessage deviceJoinOnSystem(@RequestBody Iot.JoinRequestMessage message,  HttpServletRequest request){
       log.info("new device joining on the system");
       log.info("ip: {} port:{}", request.getRemoteAddr(), request.getRemotePort());
-      //TODO: finish !!!!!!
       DeviceEntity created = deviceRepository
               .add(
                       DeviceEntity
                               .builder()
                               .uuid(UUID.randomUUID().toString())
-                              .remote_address(request.getRemoteAddr())
-                              .port(request.getRemotePort())
+                              .remote_address(message.getUdpIp())
+                              .remote_port(message.getUdpPort())
                               .name(message.getName())
                               .actuators(
                                       message.getActuatorsList().stream().map(actuator ->

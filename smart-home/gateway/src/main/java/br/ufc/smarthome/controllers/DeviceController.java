@@ -17,21 +17,41 @@ import java.util.stream.Collectors;
 public class DeviceController {
     private final DeviceRepository deviceRepository;
 
+    @DeleteMapping("/{deviceId}")
+    void removeDeviceFromSystem(@PathVariable String deviceId){
+        log.info("removing {} from system", deviceId);
+
+        DeviceEntity device = deviceRepository.getById(deviceId);
+        if(device != null){
+            if(device.shutdown()){
+                log.info("{} is shutting down",deviceId);
+                if(deviceRepository.deleteById(deviceId)){
+                    log.info("{} removed successfully", deviceId);
+                }else{
+                    log.error("could not find {} to delete", deviceId);
+                }
+            }else{
+                log.error("could not contact {}", deviceId);
+            }
+        }else{
+            log.error("could not find {} device", deviceId);
+        }
+
+    }
+
     @PostMapping("/{deviceId}/actuators/{actuatorId}/toggle")
     void toggleDeviceActuator(@PathVariable int actuatorId, @PathVariable String deviceId){
         log.info("toggling actuator {} of device {}", actuatorId, deviceId);
 
         DeviceEntity device = deviceRepository.getById(deviceId);
         if (device != null) {
-            for(DeviceEntity.ActuatorEntity actuator : device.getActuators()){
-                if(actuator.getId() == actuatorId){
-                    if(actuator.remoteToggle()){
-                        log.info("toggling went successfully");
-                    }else{
-                        log.info("could not toggle actuator");
-                    }
-                }
+            if(device.remoteToggle(actuatorId)){
+                log.info("toggling went successfully");
+            }else{
+                log.info("could not toggle actuator");
             }
+        }else{
+            log.error("could not find {} device", deviceId);
         }
 
     }

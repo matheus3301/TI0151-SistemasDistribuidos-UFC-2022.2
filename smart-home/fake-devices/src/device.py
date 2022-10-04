@@ -1,4 +1,5 @@
 import socket
+from xmlrpc.client import Boolean
 import src.protobuf.iot_pb2 as Messages
 import requests
 import struct
@@ -29,12 +30,12 @@ class Device:
 
         try:
             udp_address = (udp_server_address, udp_server_port)
-            udp_connection = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            udp_connection.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            udp_connection.bind(udp_address)
+            self.__udp_connection = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            self.__udp_connection.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            self.__udp_connection.bind(udp_address)
         except socket.error:
             logging.error(f"could not bind to port, shutting down the device!")
-            
+            exit(1)
             return
 
         (server_address, server_port) = self.wait_for_gateway_info()
@@ -54,11 +55,31 @@ class Device:
         thread.start()
 
         logging.info("starting listing for gateway messages")
-        self.listen_to_gateway_messages()
+        self.listen_to_gateway_messages(server_address, server_port)
 
     
-    def listen_to_gateway_messages(self):
-        pass
+    def listen_to_gateway_messages(self, server_address, server_port):
+        while True:
+            message = self.__udp_connection.recv(BUFFER_SIZE).decode()
+            logging.info("new message from gateway")
+            try:
+                actuator_id = int(message)
+                actuator_id = actuator_id - 1
+
+                if(actuator_id == -1):
+                    logging.info("shutdown message from gateway")
+                    self.__udp_connection.close()
+                    logging.info("unbinding udp port")
+                    exit()
+                    return 0
+
+                logging.info(f"toggling actuator {actuator_id}")
+                new_value = True if not self.__actuators[actuator_id]['state'] else False
+                self.__actuators[actuator_id].update({'state': new_value})
+                self.send_sensor_data(server_address, server_port) 
+            except Exception:
+                logging.error("invalid message from gateway")
+                pass
 
 
     def initiate_actuators_state(self):
@@ -108,6 +129,9 @@ class Device:
 
         join_request_message = Messages.JoinRequestMessage()
         join_request_message.name = self.__device_name
+        join_request_message.udp_ip = self.__udp_server_address
+        join_request_message.udp_port = self.__udp_server_port
+
         
         #insert sensors data
         id = 1
