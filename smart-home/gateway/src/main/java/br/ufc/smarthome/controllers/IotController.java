@@ -27,9 +27,8 @@ public class IotController {
     Iot.JoinResponseMessage deviceJoinOnSystem(@RequestBody Iot.JoinRequestMessage message,  HttpServletRequest request){
       log.info("new device joining on the system");
       log.info("ip: {} port:{}", request.getRemoteAddr(), request.getRemotePort());
-
-      //TODO: finish !!!!!! 
-      deviceRepository
+      //TODO: finish !!!!!!
+      DeviceEntity created = deviceRepository
               .add(
                       DeviceEntity
                               .builder()
@@ -48,11 +47,14 @@ public class IotController {
                               .sensors(message.getSensorsList().stream().map(sensor ->
                                           DeviceEntity.SensorEntity
                                                   .builder()
+                                                  .history(new ArrayList<>())
+                                                  .id(sensor.getId())
+                                                  .name(sensor.getName())
                                                   .build()
                               ).collect(Collectors.toList()))
                               .build()
               );
 
-      return Iot.JoinResponseMessage.newBuilder().setId(UUID.randomUUID().toString()).build();
+      return Iot.JoinResponseMessage.newBuilder().setId(created.getUuid()).build();
     }
 }
