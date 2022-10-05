@@ -23,7 +23,7 @@ export const toggleActuator = async (device_id, actuator_id, setDevicesList) => 
     try {
         const response = await api.post(`/devices/${device_id}/actuators/${actuator_id}/toggle`);
         if (response.status === 200){
-            Notification('success', 'Modificado atuador com sucesso!')
+            Notification('success', 'Atuador modificado com sucesso!')
             getDevices(setDevicesList);
         }
     } catch (e) {
