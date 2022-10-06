@@ -9,41 +9,74 @@ import messages.CalculusSuccessResponse;
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 @Slf4j
 public class ClientApplication {
-    // TODO: Escrever um cliente melhorzin (menu interativo, cli, gui)
-
     private static final int PORT = 6666;
     private static final String HOST = "localhost";
     private static CalculatorClient calculatorClient;
-
     public static void main(String[] args) {
-        try {
+        Scanner input = new Scanner(System.in);
+        Operations operation;
+        try{
             calculatorClient = new CalculatorClient(HOST, PORT);
-            log.info("conectado ao servidor!");
-        } catch (UnknownHostException e) {
-            log.error("host desconhecido");
+            System.out.println("Socket criado!");
+            while(Boolean.TRUE) {
+                System.out.println("Digite a operação desejada: (+, -, *, /)");
+                String rawOperationInput = input.next();
+                char op = rawOperationInput.charAt(0);
+                switch (op) {
+                    case '+':
+                        operation = Operations.SUM;
+
+                        break;
+                    case '-':
+                        operation = Operations.SUB;
+
+                        break;
+                    case '*':
+                        operation = Operations.MUL;
+
+                        break;
+                    case '/':
+                        operation = Operations.DIV;
+
+                        break;
+                    default:
+                        System.out.println("Operação Inválida!");
+                        continue;
+                }
+
+                System.out.println("Digite o primeiro número:");
+                double a = input.nextDouble();
+
+                System.out.println("Digite o segundo número");
+                double b = input.nextDouble();
+
+                calcula(a, b, operation);
+            }
         } catch (SocketException e) {
-            log.error("porta desconhecida");
+            log.error("Erro ao criar o socket");
+
+        } catch (UnknownHostException e) {
+            log.error("Erro ao detectar o host fornecido");
         }
 
-        testaConta(1, 1, Operations.SUM);
-        testaConta(3, 6, Operations.MUL);
-        testaConta(4, 5, Operations.SUB);
-        testaConta(18, 0, Operations.DIV);
     }
 
-    private static void testaConta(double a, double b, Operations operation) {
+    private static void calcula(double a, double b, Operations operation) {
         try {
             CalculusResponse response = calculatorClient.calculate(a, b, operation, 4);
             if (response instanceof CalculusSuccessResponse) {
                 CalculusSuccessResponse successResponse = (CalculusSuccessResponse) response;
-                log.info("calculou {}", successResponse.getAnswer());
+                System.out.println(String.format("Resposta: %f", successResponse.getAnswer()));
+
+//                log.debug("calculou {}", successResponse.getAnswer());
 
             } else if (response instanceof CalculusErrorResponse) {
                 CalculusErrorResponse errorResponse = (CalculusErrorResponse) response;
-                log.error("erro ao calcular: {}", errorResponse.getMessage());
+//                log.debug("erro ao calcular: {}", errorResponse.getMessage());
             }
         } catch (IOException e) {
             log.error("erro no socket");
