@@ -76,7 +76,7 @@ class Device:
                 logging.info(f"toggling actuator {actuator_id}")
                 new_value = True if not self.__actuators[actuator_id]['state'] else False
                 self.__actuators[actuator_id].update({'state': new_value})
-                self.send_sensor_data(server_address, server_port) 
+                self.send_sensor_data_once(server_address, server_port)
             except Exception:
                 logging.error("invalid message from gateway")
                 pass
@@ -90,7 +90,36 @@ class Device:
     def get_measure(self, min: float, max: float):    
         return round(random.uniform(min, max), 2)
 
+
+    def send_sensor_data_once(self, server_address, server_port):
+        logging.info("sending data to gateway")
+
+        url = f'http://{server_address}:{server_port}/iot/send/{self.__device_id}'
+
+        message = Messages.SendDataRequestMessage()
+            
+        i = 1
+        for sensor in self.__sensors:
+            new_sensor = message.sensors.add()
+            new_sensor.id = i
+            new_sensor.value = self.get_measure(sensor['min'], sensor['max'])
+            i = i + 1
+
+        i = 1
+        for actuator in self.__actuators:
+            new_actuator = message.actuators.add()
+            new_actuator.id = i
+            logging.debug(f"actuator state: {actuator['state']}")
+            new_actuator.state = actuator['state']
+            i = i + 1
+
+        logging.debug(message)
+        try:
+            requests.post(url, data=message.SerializeToString(), headers=headers)
+        except Exception:
+            pass
     
+
     def send_sensor_data(self, server_address, server_port):
         logging.info("sending data to gateway")
 
