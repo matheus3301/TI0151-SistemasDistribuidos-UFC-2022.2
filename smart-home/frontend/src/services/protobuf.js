@@ -12,8 +12,7 @@ export const getDevices = async (setDevicesList) => {
         const protoDeviceList = root.lookupType('apipackage.ListAllDevicesInformationAndHistoryResponse');
         const message = protoDeviceList.decode(apiMessageBuffer);
         var devicesList = protoDeviceList.toObject(message).devices;
-        if(devicesList)
-            setDevicesList(devicesList);
+        setDevicesList(devicesList);
     } catch (e) {
         console.log(e)
     }

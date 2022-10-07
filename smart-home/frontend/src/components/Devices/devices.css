@@ -15,6 +15,7 @@
 
 .ant-row {
     margin: 54px 0px;
+    justify-content: center;
 }
 
 .ant-card{

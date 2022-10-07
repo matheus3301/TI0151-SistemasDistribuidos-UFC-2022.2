@@ -4,7 +4,6 @@
     box-sizing: border-box;
     outline: 0 !important;
     margin: 0;
-    overflow: hidden;
 }
 
 .app-container {
