@@ -7,6 +7,7 @@ import numpy as np
 import random
 import grpc
 from concurrent import futures
+import threading
 
 from . import configuration, iot_pb2, iot_pb2_grpc
 
@@ -41,21 +42,19 @@ class Device:
         logging.info("starting to send data to broker")
 
         # thread = threading.Thread(target=self.generate_fake_data_and_send_info_periodically)
-
-        # # setting the thread as daemon, to die with its parent
         # thread.setDaemon(True)
-
         # thread.start()
 
-        #listen to GRPC methods
-        # while True:
-        #     pass
-
-
-        self.listen_to_remote_commands()
-
+        grpc_server = self.listen_to_remote_commands()
 
         self.generate_fake_data_and_send_info_periodically()
+        
+        logging.info("shutting down the device!")
+
+        grpc_server.stop(grace=None)
+        self.quit_on_gateway()
+
+        logging.info("done!")
 
     def join_on_gateway(self):
         request_body = {
@@ -136,10 +135,14 @@ class Device:
         self.__alive = False
     
     def quit_on_gateway(self):
-        pass
+        return requests.delete(f"{configuration.GATEWAY_HOST}:{configuration.GATEWAY_PORT}/iot/devices/{self.__uuid}")
 
     def toggle_actuator(self, id):
-        pass
+        if len(self.__actuator_list) < id:
+            return False
+        else:
+            self.__actuator_list[id - 1]['state'] = not self.__actuator_list[id - 1]['state']
+            return True
     
     def listen_to_remote_commands(self):
         server = grpc.server(futures.ThreadPoolExecutor(max_workers=5))
@@ -156,7 +159,9 @@ class Device:
 
         logging.info(f"started listening to remote grpc commands on the port {self.__grpc_port}")
 
-        server.wait_for_termination()
+        # server.wait_for_termination()
+
+        return server
 
 class RemoteService(iot_pb2_grpc.DeviceService):
     def __init__(self, quit_method, toggle_method):
@@ -166,9 +171,10 @@ class RemoteService(iot_pb2_grpc.DeviceService):
     def ShutdownDevice(self, request, context):
         logging.info("received a command to shutdown the device")
         self.__quit_method()
+        return iot_pb2.Empty()
         
 
     def ToggleActuator(self, request, context):
         logging.info(f"received a command to toggle the actuator {request.id}")
-        self.__toggle_method(request.id)
-        return iot_pb2.ToggleActuatorResponse(ok=True)
+        ans = self.__toggle_method(request.id)
+        return iot_pb2.ToggleActuatorResponse(ok=ans)

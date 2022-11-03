@@ -43,6 +43,8 @@ public class DeviceController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDevice(@PathVariable String id){
+        log.info("deleting the device {}", id);
+
         if(deviceRepository.deleteById(id)){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }else{
