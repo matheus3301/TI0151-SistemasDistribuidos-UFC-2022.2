@@ -37,13 +37,16 @@ class Device:
 
         logging.info("starting to send data to broker")
 
-        self.generate_fake_data_and_send_info_periodically()
-        # thread = threading.Thread(target=self.generate_fake_data_and_send_info_periodically)
+        thread = threading.Thread(target=self.generate_fake_data_and_send_info_periodically)
 
-        # # setting the thread as daemon, to die with its parent
-        # thread.setDaemon(True)
+        # setting the thread as daemon, to die with its parent
+        thread.setDaemon(True)
 
-        # thread.start()
+        thread.start()
+
+        #listen to GRPC methods
+        while True:
+            pass
 
     def join_on_gateway(self):
         request_body = {
