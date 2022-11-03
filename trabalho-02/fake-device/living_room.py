@@ -10,5 +10,6 @@ device = Device(
         {'name': 'Ar Condicionado'},
         {'name': 'Televisão'}
     ],
-    3
+    3,
+    7771
     )

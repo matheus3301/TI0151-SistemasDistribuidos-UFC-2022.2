@@ -2,22 +2,25 @@ import requests
 import pika
 import logging
 import json
-import threading
 import time
 import numpy as np
 import random
+import grpc
+from concurrent import futures
 
-from . import configuration
+from . import configuration, iot_pb2, iot_pb2_grpc
 
 logging.basicConfig(level=logging.INFO,format='%(asctime)s %(levelname)s %(message)s')
 class Device:
-    def __init__(self, device_name : str, sensor_list : list, actuator_list : list, ttl: int) -> None:
+    def __init__(self, device_name : str, sensor_list : list, actuator_list : list, ttl: int, grpc_port: int) -> None:
         logging.info(f"starting the device called {device_name}")
 
         self.__device_name = device_name
         self.__sensor_list = sensor_list
         self.__actuator_list = actuator_list
         self.__ttl = ttl
+        self.__grpc_port = grpc_port
+        self.__alive = True
 
         for actuator in self.__actuator_list:
             actuator.update({'state': False})
@@ -37,16 +40,22 @@ class Device:
 
         logging.info("starting to send data to broker")
 
-        thread = threading.Thread(target=self.generate_fake_data_and_send_info_periodically)
+        # thread = threading.Thread(target=self.generate_fake_data_and_send_info_periodically)
 
-        # setting the thread as daemon, to die with its parent
-        thread.setDaemon(True)
+        # # setting the thread as daemon, to die with its parent
+        # thread.setDaemon(True)
 
-        thread.start()
+        # thread.start()
 
         #listen to GRPC methods
-        while True:
-            pass
+        # while True:
+        #     pass
+
+
+        self.listen_to_remote_commands()
+
+
+        self.generate_fake_data_and_send_info_periodically()
 
     def join_on_gateway(self):
         request_body = {
@@ -92,7 +101,7 @@ class Device:
         return channel
 
     def generate_fake_data_and_send_info_periodically(self):
-        while True:
+        while self.__alive:
             body = {'uuid': self.__uuid, 'sensors': [], 'actuators': []}
 
             i = 1
@@ -122,6 +131,44 @@ class Device:
         logging.info("sending new status data")
         logging.debug(body)
         self.__amqp_channel.basic_publish(exchange='', routing_key=configuration.RABBITMQ_QUEUE_NAME, body=json.dumps(body))
+
+    def set_alive_to_false(self):
+        self.__alive = False
     
     def quit_on_gateway(self):
         pass
+
+    def toggle_actuator(self, id):
+        pass
+    
+    def listen_to_remote_commands(self):
+        server = grpc.server(futures.ThreadPoolExecutor(max_workers=5))
+        iot_pb2_grpc.add_DeviceServiceServicer_to_server(
+            RemoteService(
+                quit_method=self.set_alive_to_false,
+                toggle_method=self.toggle_actuator
+                ),
+            server            
+            )
+        
+        server.add_insecure_port(f"[::]:{self.__grpc_port}")
+        server.start()
+
+        logging.info(f"started listening to remote grpc commands on the port {self.__grpc_port}")
+
+        server.wait_for_termination()
+
+class RemoteService(iot_pb2_grpc.DeviceService):
+    def __init__(self, quit_method, toggle_method):
+        self.__quit_method = quit_method
+        self.__toggle_method = toggle_method
+
+    def ShutdownDevice(self, request, context):
+        logging.info("received a command to shutdown the device")
+        self.__quit_method()
+        
+
+    def ToggleActuator(self, request, context):
+        logging.info(f"received a command to toggle the actuator {request.id}")
+        self.__toggle_method(request.id)
+        return iot_pb2.ToggleActuatorResponse(ok=True)

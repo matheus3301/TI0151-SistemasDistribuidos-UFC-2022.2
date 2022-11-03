@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option java_package = "br.gov.ufc.homeassistantserver.services";
+option java_outer_classname = "Iot";
+
+message Empty {
+
+}
+
+message ShutdownResponse {
+    bool ok = 1;
+}
+
+message ToggleActuatorRequest {
+    int32 id = 1;
+}
+
+message ToggleActuatorResponse {
+    bool ok = 1;
+}
+
+service DeviceService {
+    rpc ShutdownDevice (Empty) returns (Empty) {}
+    rpc ToggleActuator (ToggleActuatorRequest) returns (ToggleActuatorResponse) {}
+}
+
+// installing the dependencies, this is the command to compile to python
+//  python -m grpc_tools.protoc -I ../proto --python_out=./src --grpc_python_out=./src ../proto/iot.proto
