@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootApplication
-@RestController
 public class HomeAssistantServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(HomeAssistantServerApplication.class, args);

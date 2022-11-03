@@ -18,30 +18,30 @@ public class Device {
     @Data
     @Builder
     public static class SensorEntity{
-        private final int id;
-        private final String name;
-        private final List<Measure> history;
+        private int id;
+        private String name;
+        private List<Measure> history;
 
         @Data
         @Builder
         public static class Measure{
-            private final LocalDateTime timestamp;
-            private final double value;
+            private LocalDateTime timestamp;
+            private double value;
         }
     }
 
     @Data
     @Builder
     public static class ActuatorEntity {
-        private final int id;
-        private final String name;
-        private final List<Status> history;
+        private int id;
+        private String name;
+        private List<Status> history;
 
         @Data
         @Builder
         public static class Status {
-            private final LocalDateTime timestamp;
-            private final boolean value;
+            private LocalDateTime timestamp;
+            private boolean value;
         }
     }
 }
