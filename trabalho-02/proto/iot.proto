@@ -25,4 +25,5 @@ service DeviceService {
 }
 
 // installing the dependencies, this is the command to compile to python
-//  python -m grpc_tools.protoc -I ../proto --python_out=./src --grpc_python_out=./src ../proto/iot.proto
+// python -m grpc_tools.protoc -I ../proto --python_out=./src --grpc_python_out=./src ../proto/iot.proto
+// protoc --plugin=protoc-gen-grpc-java=/usr/bin/protoc-gen-grpc-java-1.50.0-linux-x86_64.exe --grpc-java_out=proto/build/gen --java_out=proto/build/gen --proto_path=proto proto/iot.proto
