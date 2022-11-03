@@ -23,6 +23,7 @@ public class Device {
         private int id;
         private String name;
         private List<Measure> history;
+
         @Data
         @Builder
         public static class Measure{

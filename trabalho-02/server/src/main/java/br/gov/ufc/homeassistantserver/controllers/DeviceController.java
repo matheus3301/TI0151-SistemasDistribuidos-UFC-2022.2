@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/iot/devices")
 @RequiredArgsConstructor
+@CrossOrigin
 public class DeviceController {
     private final DeviceRepository deviceRepository;
 
