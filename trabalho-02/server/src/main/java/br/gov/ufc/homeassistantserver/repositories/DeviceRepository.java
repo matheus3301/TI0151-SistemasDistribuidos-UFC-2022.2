@@ -26,7 +26,6 @@ public class DeviceRepository {
         return this.devices.values();
     }
 
-//  TODO: check join using http
     public Device add(Device device){
         log.info(device.toString());
 

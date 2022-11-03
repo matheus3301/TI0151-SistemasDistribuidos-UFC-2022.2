@@ -45,7 +45,12 @@ public class DeviceController {
             sensor.setHistory(new ArrayList<>());
         }
 
-        device.setRemote_address(request.getRemoteAddr());
+        String remoteAddr = request.getRemoteAddr();
+        if(remoteAddr.equals("0:0:0:0:0:0:0:1")){
+            remoteAddr = "127.0.0.1";
+        }
+
+        device.setRemote_address(remoteAddr);
 
         return ResponseEntity.created(null).body(deviceRepository.add(device));
     }
