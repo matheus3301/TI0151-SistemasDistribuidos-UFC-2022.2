@@ -39,14 +39,10 @@ class Device:
 
         self.__amqp_channel = self.connect_on_rabbitmq()
 
-        logging.info("starting to send data to broker")
-
-        # thread = threading.Thread(target=self.generate_fake_data_and_send_info_periodically)
-        # thread.setDaemon(True)
-        # thread.start()
-
+        logging.info("starting to listen to remote commands")
         grpc_server = self.listen_to_remote_commands()
 
+        logging.info("starting to send data to broker")
         self.generate_fake_data_and_send_info_periodically()
         
         logging.info("shutting down the device!")
@@ -60,7 +56,8 @@ class Device:
         request_body = {
             'name': self.__device_name,
             'sensors': [],
-            'actuators': []
+            'actuators': [],
+            'grpc_port': self.__grpc_port
         }
 
         i = 1

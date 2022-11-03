@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
@@ -26,7 +27,7 @@ public class DeviceController {
     }
 
     @PostMapping
-    public ResponseEntity<Device> createDevice(@RequestBody Device device){
+    public ResponseEntity<Device> createDevice(@RequestBody Device device, HttpServletRequest request){
         log.info("creating a new device on the system");
 
         device.setUuid(UUID.randomUUID().toString());
@@ -37,6 +38,8 @@ public class DeviceController {
         for(var sensor : device.getSensors()){
             sensor.setHistory(new ArrayList<>());
         }
+
+        device.setRemote_address(request.getRemoteAddr());
 
         return ResponseEntity.created(null).body(deviceRepository.add(device));
     }

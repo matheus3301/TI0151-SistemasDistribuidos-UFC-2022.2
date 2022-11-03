@@ -14,6 +14,8 @@ public class Device {
     private final String name;
     private final List<SensorEntity> sensors;
     private final List<ActuatorEntity> actuators;
+    private int grpc_port;
+    private String remote_address;
 
     @Data
     @Builder
@@ -21,7 +23,6 @@ public class Device {
         private int id;
         private String name;
         private List<Measure> history;
-
         @Data
         @Builder
         public static class Measure{
