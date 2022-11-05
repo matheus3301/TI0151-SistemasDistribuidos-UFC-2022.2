@@ -1,13 +1,15 @@
 package br.gov.ufc.homeassistantserver.listeners;
 
-import br.gov.ufc.homeassistantserver.constants.QueueNames;
+import br.gov.ufc.homeassistantserver.configuration.QueueConfiguration;
+import br.gov.ufc.homeassistantserver.constants.ExchangeNames;
 import br.gov.ufc.homeassistantserver.messages.DeviceUpdateMessage;
 import br.gov.ufc.homeassistantserver.models.Device;
 import br.gov.ufc.homeassistantserver.repositories.DeviceRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +20,8 @@ import java.time.LocalDateTime;
 @Slf4j
 public class DeviceListener {
     private final DeviceRepository deviceRepository;
-    @RabbitListener(queues = {QueueNames.DEVICE_STATUS_QUEUE})
+    private final QueueConfiguration.QueueName queueName;
+    @RabbitListener(queues = "#{queueName.getName()}")
     public void listenToDeviceStatus(@Payload DeviceUpdateMessage status){
 
         Device device = deviceRepository.getById(status.getUuid());
