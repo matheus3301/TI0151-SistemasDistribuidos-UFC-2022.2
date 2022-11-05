@@ -89,10 +89,10 @@ class Device:
         return response_body['uuid']    
 
     def connect_on_rabbitmq(self):
-        connection = pika.BlockingConnection(pika.ConnectionParameters(host=configuration.RABBITMQ_HOST, credentials=pika.PlainCredentials('guest','guest')))
+        connection = pika.BlockingConnection(pika.ConnectionParameters(host=configuration.RABBITMQ_HOST, credentials=pika.PlainCredentials(configuration.RABBITMQ_USER,configuration.RABBITMQ_PASSWORD)))
         channel = connection.channel()
 
-        channel.queue_declare(queue=configuration.RABBITMQ_QUEUE_NAME, durable=True)
+        channel.exchange_declare(exchange=configuration.RABBITMQ_EXCHANGE_NAME, durable=True, exchange_type='fanout')
         
         return channel
 
@@ -126,7 +126,7 @@ class Device:
     def send_sensor_data(self, body):
         logging.info("sending new status data")
         logging.debug(body)
-        self.__amqp_channel.basic_publish(exchange='', routing_key=configuration.RABBITMQ_QUEUE_NAME, body=json.dumps(body))
+        self.__amqp_channel.basic_publish(exchange=configuration.RABBITMQ_EXCHANGE_NAME, routing_key='', body=json.dumps(body), properties=configuration.message_props)
 
     def set_alive_to_false(self):
         self.__alive = False

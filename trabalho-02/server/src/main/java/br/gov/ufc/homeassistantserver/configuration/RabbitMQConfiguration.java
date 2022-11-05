@@ -1,10 +1,7 @@
 package br.gov.ufc.homeassistantserver.configuration;
 
 import br.gov.ufc.homeassistantserver.constants.ExchangeNames;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Declarables;
-import org.springframework.amqp.core.FanoutExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -12,8 +9,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.UUID;
 
 @EnableRabbit
 @Configuration
@@ -30,15 +25,15 @@ public class RabbitMQConfiguration {
 
     @Bean
     public Queue deviceStatusQueue(QueueConfiguration.QueueName queueName){
-        return new Queue(queueName.getName(), true, true, true);
+        return new Queue(queueName.getName(), false, false, true);
     }
 
     @Bean
-    public Declarables fanoutExchangeBindings(
+    public Binding fanoutExchangeBindings(
             FanoutExchange deviceStatusExchange,
             Queue processQueue
     ){
-        return new Declarables(processQueue, deviceStatusExchange, BindingBuilder.bind(processQueue).to(deviceStatusExchange));
+        return BindingBuilder.bind(processQueue).to(deviceStatusExchange);
     }
 
     @Bean
@@ -49,7 +44,12 @@ public class RabbitMQConfiguration {
     @Bean
     public RabbitTemplate rabbitTemplate() {
         var rabbitTemplate = new RabbitTemplate(connectionFactory());
-        rabbitTemplate.setMessageConverter(new Jackson2JsonMessageConverter());
+        rabbitTemplate.setMessageConverter(converter());
         return rabbitTemplate;
+    }
+
+    @Bean
+    public Jackson2JsonMessageConverter converter() {
+        return new Jackson2JsonMessageConverter();
     }
 }
